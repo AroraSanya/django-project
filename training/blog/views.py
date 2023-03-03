@@ -4,10 +4,12 @@ from django.shortcuts import render
 from django.http import HttpResponse
 
 def hello(request):
-    form="""
+    num1=request.GET.get('num1',"")
+    num2=request.GET.get('num2',"")
+    form=f"""
    <form method="GET">
-   <input type="text" name="num1"  placeholder="Enter num1"/>
-   <input type="text" name="num2"  placeholder="Enter num2"/>
+   <input type="text" name="num1"  placeholder="Enter num1" value="{num1}"/>
+   <input type="text" name="num2" placeholder="Enter num2" value="{num2}"/>
    <button name="add">+</button>
    <button name="sub">-</button>
    <button name="mul">*</button>
@@ -15,8 +17,7 @@ def hello(request):
     """
     result = ""
     if request.method=="GET":
-        num1=request.GET.get( 'num1')
-        num2=request.GET.get('num2')
+        
         if 'add' in request.GET:
             result=add(num1,num2)
         if 'sub' in request.GET:
