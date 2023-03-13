@@ -50,10 +50,11 @@ def delete_blog(request,**kwargs):
 
 
 
-# var = settings.CUSTOM
-# demo = settings.DEBUG
-# print(var)
-# print(demo)
+
+
+
+
+
 
 # from django import forms
 
