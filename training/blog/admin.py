@@ -20,7 +20,9 @@ class RegisteredBlog(admin.ModelAdmin):
            if date > end and date < begin:
                 return True
            else:
-                return False     
+                return False
+      is_recently_published.short_description = 'Latest Published'  
+              
 
 admin.site.register(Blog,RegisteredBlog)
     
