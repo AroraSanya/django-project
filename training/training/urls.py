@@ -15,15 +15,19 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from blog.views import form_view
 from django.views.decorators.csrf import csrf_exempt
-from blog import views
+from blog.views import create_blog,list_all_blogs,update_blog,delete_blog
 
 urlpatterns = [
     path('admin/', admin.site.urls),
    
     # path('hi/',csrf_exempt(hello)),
-    path('form/',form_view),
+    # path('form/',form_view),
+    path('demo/create',create_blog),
+    path('demo/list',list_all_blogs),
+    path('demo/<int:id>/update',update_blog),
+    path('demo/<int:id>/delete',delete_blog)
+    
    
 ]
     
