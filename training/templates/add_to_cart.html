@@ -1,0 +1,13 @@
+<div>
+    <h2> cart List</h2>
+    <h1>{{request.session.cart}}</h1>
+    {% for p in cart %}
+       <h3><b>{{p.id}}</b></h3>
+       <p>{{p.product1.name}}</p>
+       <em>{{p.product1.quality}}</em><br>
+       <br>
+      
+       <a href="/product/{{p.id}}/delete">remove from  cart</a>
+       <hr> 
+    {%endfor%}
+</div>

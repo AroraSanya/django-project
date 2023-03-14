@@ -16,8 +16,9 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from django.views.decorators.csrf import csrf_exempt
+# from django.confimport setting
 from blog.views import create_blog,list_all_blogs,update_blog,delete_blog
-
+from product.views import create_product,list_all_products,delete_product,add_to_cart,delete_cart,registered_user
 urlpatterns = [
     path('admin/', admin.site.urls),
    
@@ -26,7 +27,13 @@ urlpatterns = [
     path('demo/create',create_blog),
     path('demo/list',list_all_blogs),
     path('demo/<int:id>/update',update_blog),
-    path('demo/<int:id>/delete',delete_blog)
+    path('demo/<int:id>/delete',delete_blog),
+    path('productcreate',create_product),
+    path('product/list',list_all_products),
+    path('product/delete',delete_product),
+    path('add_to_cart/<int:id>/add',add_to_cart),
+    path('product/<int:id>/delete',delete_cart),
+    path('register/user',registered_user),
     
    
 ]

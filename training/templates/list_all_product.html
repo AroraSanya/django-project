@@ -1,11 +1,11 @@
 <div>
     <h2> products List</h2>
-    {% for blog in blog %}
-       <h3><b>{{blog.name}}</b></h3>
-       <p>{{blog.description}}</p>
-       <em>{{blog.author}}</em><br>
+    {% for p in product %}
+       <h3><b>{{p.name}}</b></h3>
+       <p>{{p.price}}</p>
+       <em>{{p.quality}}</em><br>
        <br>
-       <a href = "/demo/{{blog.id}}/update">Edit</a> || <a href="/demo/{{blog.id}}/delete">Delete</a>   
+       <a href="/add_to_cart/{{p.id}}/add">add to cart</a>
        <hr> 
     {%endfor%}
 </div>
