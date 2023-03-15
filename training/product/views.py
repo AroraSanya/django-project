@@ -2,7 +2,8 @@ from django.shortcuts import render,redirect
 from django.contrib.auth.models import User
 from .forms import ProductForm,RegisterForms
 from .models import Product,Cart
-
+from product.cart_helper import add_cart,delete_cart
+from django.contrib.auth.models import User
 
 # Create your views here.
 def registered_user(request):
@@ -34,31 +35,47 @@ def delete_product(request,**kwargs):
     product = product.objects.all()
     return render(request,'list_all.html', {'product': product})
 
+# # def add_to_cart(request,**kwargs):
+# #     if id:=kwargs.get('id'):
+# #         product=Product.objects.get(id=id)
+# #         # print(product.id)
+# #         cart = Cart.objects.create(product1_id=product.id)
+# #         cart.save()
+# #     cart=Cart.objects.all()
+# #     return render(request,'add_to_cart.html',{'cart':cart})
+# # WITH-----SESSION 
 # def add_to_cart(request,**kwargs):
 #     if id:=kwargs.get('id'):
 #         product=Product.objects.get(id=id)
-#         # print(product.id)
-#         cart = Cart.objects.create(product1_id=product.id)
-#         cart.save()
-#     cart=Cart.objects.all()
-#     return render(request,'add_to_cart.html',{'cart':cart})
-# WITH-----SESSION 
+#         cart_session = request.session.get('cart', [])
+#         cart_items = {'Name': product.name, 'price':product.price,'quality':product.quality}
+#         cart_session.append(cart_items)
+#         request.session['cart'] = cart_session
+#         print(request.session['cart'])
+#     return render(request,'add_to_cart.html')
+
+# def delete_cart(request,**kwargs):
+#     if id:=kwargs.get('id'):
+#         cart = Cart.objects.get(id=id)
+#         cart.delete()
+#     cart = Cart.objects.all()
+#     return render(request,'add_to_cart.html', {'cart': cart})
+
 def add_to_cart(request,**kwargs):
-    if id:=kwargs.get('id'):
-        product=Product.objects.get(id=id)
-        cart_session = request.session.get('cart', [])
-        cart_items = {'Name': product.name, 'price':product.price,'quality':product.quality}
-        cart_session.append(cart_items)
-        request.session['cart'] = cart_session
-        print(request.session['cart'])
-    return render(request,'add_to_cart.html')
+    helper_cart=add_cart(request,**kwargs)
+    return redirect('cart/list')
 
-def delete_cart(request,**kwargs):
-    if id:=kwargs.get('id'):
-        cart = Cart.objects.get(id=id)
-        cart.delete()
-    cart = Cart.objects.all()
-    return render(request,'add_to_cart.html', {'cart': cart})
+def del_cart(request,**kwargs):
+    cart=delete_cart(request,**kwargs)
+    print(cart)
+    return redirect('/cart/list')
 
+def cart_list(request):
+    cart= request.session['cart']
+    print(cart)
+    return render(request, 'add_to_cart.html', {'cart':cart})
 
+def registered_user(request):
+    user_login=request.session['user_login']   
+    return render(request)  
 
