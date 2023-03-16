@@ -53,9 +53,6 @@ def delete_blog(request,**kwargs):
 
 
 
-
-
-
 # from django import forms
 
 

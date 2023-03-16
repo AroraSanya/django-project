@@ -1,21 +1,34 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="#">Navbar</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/style.css' %}">
+<style>
+  .navbar-nav{
+    display: flex;
+    justify-content: space-around;
+    font-size: large;
+  }  
+</style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#">DAIRY</a>
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
       <div class="navbar-nav">
-        <a class="nav-item nav-link active" href="#">ADD_TO_CART <span class="sr-only">(current)</span></a>
-        <a class="nav-item nav-link" href="#">PRODUCT_LIST</a>
-        <a class="nav-item nav-link" href="#">CART_LIST</a>
-        <a class="nav-item nav-link disabled" href="#">AD</a>
+      <li class="active"><a href="#">Home</a></li>
+      <li><a href="{% url 'login' %}">LOGIN</a></li>
+      <li><a href="{% url 'registered' %}">REGISTER</a></li>
+      <li><a href="{% url 'create' %}">CREATE_PRODUCTS</a></li>
       </div>
     </div>
   </nav>
-  <body>
-
-    {% block content %}
-
-    {% endblock %} 
-      
+  {% block content %}
+    
+  {% endblock %}  
+  </html>
   </body>
+  <div class="container">
+   
+    </div>

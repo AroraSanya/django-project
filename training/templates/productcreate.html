@@ -1,3 +1,4 @@
+{% extends 'Base.html' %}
 <form method = "POST" style="margin:30px;" >
     {% csrf_token %}
     {{form.as_div}}

@@ -2,8 +2,8 @@ from django.shortcuts import render,redirect
 from django.contrib.auth.models import User
 from .forms import ProductForm,RegisterForms
 from .models import Product,Cart
-from product.cart_helper import add_cart,delete_cart
-from django.contrib.auth.models import User
+from product.cart_helper import add_cart,delete_cart,register_user,login
+from django.contrib.auth import authenticate,login
 
 # Create your views here.
 def registered_user(request):
@@ -35,6 +35,33 @@ def delete_product(request,**kwargs):
     product = product.objects.all()
     return render(request,'list_all.html', {'product': product})
 
+
+def add_to_cart(request,**kwargs):
+    helper_cart=add_cart(request,**kwargs)
+    return redirect('cart/list')
+
+def del_cart(request,**kwargs):
+    cart=delete_cart(request,**kwargs)
+    print(cart)
+    return redirect('/cart/list')
+
+def cart_list(request):
+    cart= request.session['cart']
+    print(cart)
+    return render(request,'add_to_cart.html', {'cart':cart})
+
+# def registered_user(request):
+#     user_login=request.session['user_login']   
+#     return render(request)  
+
+
+def register(request):
+    return render(request,'register.html')
+
+def login(request):
+    return render(request,'login.html')
+
+
 # # def add_to_cart(request,**kwargs):
 # #     if id:=kwargs.get('id'):
 # #         product=Product.objects.get(id=id)
@@ -61,21 +88,5 @@ def delete_product(request,**kwargs):
 #     cart = Cart.objects.all()
 #     return render(request,'add_to_cart.html', {'cart': cart})
 
-def add_to_cart(request,**kwargs):
-    helper_cart=add_cart(request,**kwargs)
-    return redirect('cart/list')
 
-def del_cart(request,**kwargs):
-    cart=delete_cart(request,**kwargs)
-    print(cart)
-    return redirect('/cart/list')
-
-def cart_list(request):
-    cart= request.session['cart']
-    print(cart)
-    return render(request, 'add_to_cart.html', {'cart':cart})
-
-def registered_user(request):
-    user_login=request.session['user_login']   
-    return render(request)  
 

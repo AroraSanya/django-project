@@ -1,8 +1,88 @@
-{% extends 'base.html' %}
+{% extends 'Base.html' %}
 {% block content %}
-<form method = "POST" style="margin:30px;" >
-    {% csrf_token %}
-    {{form.as_div}}
-    <input type = 'submit' name = 'submit' style="color: black;margin-top: 20px" value="Submit">
-</form>
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta name="viewport" content=
+		"width=device-width, initial-scale=1" />
+	<!-- <script src=
+"https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js">
+	</script> -->
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    
+</head>
+
+
+<body>
+    <h1>Register</h1>
+	<div id="background">
+		<div class="background-Right"></div>
+		<div class="background-Left"></div>
+       
+	</div>
+
+	<div id="slide">
+		<div class="top">
+			<div class="left">
+				<div class="content">
+					<h2>Sign Up</h2>
+					<form method="post"
+						onsubmit="return false;">
+						<div>
+                            <label for="e-mail">E-Mail-</label>
+							<input type="text" 
+								placeholder="email" />
+                            <br>
+						
+                            <label for="password">Password-</label>
+							<input type="password"
+								placeholder="password" />
+						</div>
+                        <div>
+                            <label for="re-password">Re-Password-</label>
+                            <input type=" Re-enter-password"
+								placeholder=" Re-enter-password" />
+                        </div>
+					</form>
+
+					<button id="LeftToRight"
+						class="on-off">Login
+					</button>
+					
+					<button>Register</button>
+				</div>
+			</div>
+
+			<div class="right">
+				<div class="content">
+					<h2>Login</h2>
+					<form method="post"
+						onsubmit="return false;">
+						<div>
+                            <label for="e=mail">E-MAIL-</label>
+							<input type="text"
+								placeholder="email" />
+							
+							<br>
+                            <label for="password">Password-</label>
+							<input type="password"
+								placeholder="password" />
+						</div>
+
+						<button id="RightToLeft"
+							class="on-off">Register
+						</button>
+						
+						<button>Login</button>
+					</form>
+                    <input type = 'submit' name = 'submit' style="color: black;margin-top: 20px" value="Submit">
+				</div>
+			</div>
+		</div>
+	</div>%
+</body>
+
+</html>
 {% endblock %}
