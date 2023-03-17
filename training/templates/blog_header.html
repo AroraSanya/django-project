@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/style.css' %}">
+<style>
+  .navbar-nav{
+    display: flex;
+    justify-content: space-around;
+    font-size: large;
+  }  
+</style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#">DAIRY</a>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <div class="navbar-nav">
+      <li class="active"><a href="{% url 'home page' %}">Home</a></li>
+      <li><a href="{% url 'bloglogin' %}">LOGIN</a></li>
+      <li><a href="{% url 'registered' %}">REGISTER</a></li>
+      <li><a href="{% url 'creating' %}">BLOG CREATE</a></li>
+      <li><a href="{% url 'listing' %}">BLOG LIST</a></li>
+      <li><a href="{% url 'logout' %}">LOGOUT</a></li>
+
+      </div>
+    </div>
+  </nav>
+  {% block content %}
+    
+  {% endblock %}  
+  </html>
+  </body>
+  <div class="container">
+
+  </div>

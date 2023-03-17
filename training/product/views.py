@@ -1,3 +1,4 @@
+from django.http import HttpResponse
 from django.shortcuts import render,redirect
 from django.contrib.auth.models import User
 from .forms import ProductForm,RegisterForms
@@ -6,7 +7,7 @@ from product.cart_helper import add_cart,delete_cart,register_user,login
 from django.contrib.auth import authenticate,login
 
 # Create your views here.
-def registered_user(request):
+def register_user(request):
     form=RegisterForms()
     if request.method=='POST':
         userName = request.POST.get('username', None)
@@ -59,6 +60,17 @@ def register(request):
     return render(request,'register.html')
 
 def login(request):
+    if request.method == "POST":
+        print(request.user)
+        name = request.POST.get('fname')
+        password = request.POST.get('password')
+        user = authenticate(request,name,password)
+        if user is not None:
+            login(request,user)
+            print(request.user)
+            return redirect('Base.html')
+        else:
+            return HttpResponse("please enter valid details for login ")
     return render(request,'login.html')
 
 

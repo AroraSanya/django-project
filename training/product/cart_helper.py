@@ -24,7 +24,6 @@ def add_cart(request,**kwargs):
     return request.session['cart']    
 
 
-
 def delete_cart(request,**kwargs):
     if id:=kwargs.get('id'):
         product=Product.objects.get(id=id)
@@ -45,22 +44,22 @@ def register_user(request):
         print(request.user)
         username = request.POST.get('username')
         password = request.POST.get('password')
-        user = User.objects.create_user(username, password =password)
+        user = User.objects.create_user(username=username, password =password)
         user.save()
     
     return render(request, 'register.html')
     
-def login(request):
-    if request.method == "POST":
-        print(request.user)
-        name = request.POST.get('fname')
-        password = request.POST.get('password')
-        user = authenticate(request,name,password)
-        if user is not None:
-            login(request,user)
-            return redirect('Base.html')
-        else:
-            return HttpResponse("please enter valid details for login ")
-    return render(request,'login.html')
+# def login(request):
+#     if request.method == "POST":
+#         print(request.user)
+#         name = request.POST.get('fname')
+#         password = request.POST.get('password')
+#         user = authenticate(request,name,password)
+#         if user is not None:
+#             login(request,user)
+#             return redirect('Base.html')
+#         else:
+#             return HttpResponse("please enter valid details for login ")
+#     return render(request,'login.html')
 
 

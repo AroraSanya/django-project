@@ -9,6 +9,11 @@ class Blog(models.Model):
     description=models.TextField()
     is_published= models.BooleanField()
 
+    class Meta:
+        permissions=[('can_publish','Can Publish blog')]
+        
+
+
 
 
 

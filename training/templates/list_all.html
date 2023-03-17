@@ -1,3 +1,5 @@
+{% extends 'blog_header.html'%}
+{% block content%}
 <div>
     <h2> Blogs List</h2>
     {% for blog in blog %}
@@ -5,7 +7,8 @@
        <p>{{blog.description}}</p>
        <em>{{blog.author}}</em><br>
        <br>
-       <a href = "/demo/{{blog.id}}/update">Edit</a> || <a href="/demo/{{blog.id}}/delete">Delete</a>   
+       <a href = "{%url 'updating' blog.id%}">Edit</a> || <a href="{%url'deleting' blog.id%}">Delete</a>   
        <hr> 
     {%endfor%}
 </div>
+{% endblock %}

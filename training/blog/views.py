@@ -1,12 +1,29 @@
 from django.shortcuts import render,redirect
 from django.http import HttpResponse
 from django import views
-from blog.form import RegisterForms,BlogForm
+from django.contrib.auth.models import User
+from blog.form import RegisterForms,BlogForm,Login_form
 from blog.models import Blog
 from django.conf import settings 
+from django.contrib.auth.decorators import permission_required
+from django.contrib.auth import authenticate,login,logout
+    
 
 
+def home(request):
+    return render(request,'blog_index.html')
 
+def registered_user(request):
+    form=RegisterForms()
+    if request.method=='POST':
+        userName = request.POST.get('username', None)
+        userPass = request.POST.get('password', None)
+        email=request.POST.get('email')
+        user = User.objects.create_user(username=userName,password=userPass, email=email)
+        user.save()
+    return render(request,'register_blog.html', {'form': form})
+
+@permission_required('blog.add_blog')
 def create_blog(request): 
     form_blog = BlogForm()
     if request.method == 'POST':
@@ -20,10 +37,17 @@ def create_blog(request):
 
 def list_all_blogs(request):
     blog = Blog.objects.all()
-    return render(request,'list_all.html', {'blog': blog})
+    return render(request,'list_all.html',{'blog':blog})
+    
+
+# def get_blogs(request):
+#     if request.method  == 'GET':
+#             blogs  = Blog.objects.all()
+#     return render(request, , {'blogs':blogs})
 
 
 
+@permission_required('blog.change_blog')
 def update_blog(request,**kwargs):
     form = BlogForm()
     if request.method == 'POST':
@@ -47,7 +71,26 @@ def delete_blog(request,**kwargs):
     return render(request,'list_all.html', {'blog': blog})
 
 
+def login_user(request):
+    form = Login_form()
+    if request.method == "POST":
+        print(request.user)
+        name = request.POST.get('username')
+        password = request.POST.get('password')
+        user = authenticate(request,username= name,password=password)
+        if user is not None:
+            login(request,user)
+            print(request.user)
+        else:
+            return HttpResponse("please enter valid details for login ")
+    return render(request,'blog_login.html',{'form':form})
 
+def logout_user(request):
+    logout(request)
+    return redirect('/demo/list')
+
+ 
+    
 
 
 

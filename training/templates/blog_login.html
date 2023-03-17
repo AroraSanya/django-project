@@ -1,4 +1,4 @@
-{% extends 'Base.html' %}
+{% extends 'blog_header.html' %}
 {% block content %}
 <!DOCTYPE html>
 <html>
@@ -21,9 +21,9 @@
         <form class="login-form" method="post">
             {% csrf_token %}
             {{form}}
-            
-        
-        </form>
+            <input type = 'submit' name = 'submit' style="color: black;margin-top: 20px" value="Submit">
+           </form>
+           
       </div>
     </div>
 </body>
