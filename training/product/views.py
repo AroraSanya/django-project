@@ -8,7 +8,7 @@ from django.contrib.auth import authenticate,login
 
 # Create your views here.
 def home_product(request):
-    return render(request,'index_product.html')
+    return render(request,'product_home.html')
 
 
 def register_user(request):

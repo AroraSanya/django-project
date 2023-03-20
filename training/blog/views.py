@@ -89,7 +89,7 @@ def login_user(request):
 
 def logout_user(request):
     logout(request)
-    return redirect('/demo/list')
+    return redirect('home page')
 
 @permission_required('UserApi.can_publish', raise_exception=True)
 def publish_blog(request, **kwargs):
@@ -122,7 +122,7 @@ def get_published_blog(request):
 
 def get_blog(request):
     blogs = Blog.objects.all()
-    return render(request, 'list_blog.html', {'blogs':blogs})
+    return render(request, 'list_blog.html', {'blogs':blogs}) 
 
     
     

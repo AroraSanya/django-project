@@ -36,13 +36,10 @@ urlpatterns = [
     path('registered/',registered_user,name='registered'),
     path('publish/',publish_blog,name='published'),
     path('publish/blog_list',get_blog,name='get-blog'),
-    
-    
-
-
+    ###################################
     path('producthome',home_product,name='product_home'),
     path('productcreate',create_product,name='create'),
-    path('product/list',list_all_products,name='all_product'),
+    path('product/list',list_all_products,name='product-list'),
     path('product/delete',delete_product),
     path('add_to_cart/<int:id>',add_to_cart,name='add_cart'),
     path('cart/<int:id>',del_cart),
