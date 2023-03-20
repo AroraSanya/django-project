@@ -1,4 +1,4 @@
-{% extends 'Base.html' %}
+{% extends 'blog_header.html' %}
 {% block content %}
 <!DOCTYPE html>
 <html>
@@ -12,15 +12,14 @@
         <div class="login">
           <div class="login-header">
           <center>
-            <h3>LOGIN PAGE</h3>
+            <h3>CHANGE PASSWORD PAGE</h3>
             <p>Please enter your credentials to login.</p>
           </div>
         </div>
     </center>
         <form  method="post">
             {% csrf_token %}
-            {{form.as_p}}
-            
+           <input type='password' placeholder='Password'>
         
         </form>
       </div>

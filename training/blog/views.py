@@ -23,7 +23,7 @@ def registered_user(request):
         user.save()
     return render(request,'register_blog.html', {'form': form})
 
-@permission_required('blog.add_blog')
+# @permission_required('blog.add_blog')
 def create_blog(request): 
     form_blog = BlogForm()
     if request.method == 'POST':
@@ -32,6 +32,7 @@ def create_blog(request):
             blog = form_blog.save()
             blog.is_published = True
             blog.save()
+            return redirect('/demo/list')
     return render(request,'create.html', {'form': form_blog})
     
 
@@ -89,7 +90,39 @@ def logout_user(request):
     logout(request)
     return redirect('/demo/list')
 
- 
+@permission_required('UserApi.can_publish', raise_exception=True)
+def publish_blog(request, **kwargs):
+    if request.method == 'GET':
+        if id:= kwargs.get('id'):
+                blog = Blog.objects.get(id=id)
+                blog.is_published = True
+                blog.save()
+    return redirect('/demo/list')
+
+def update_user(request,**kwargs):
+    print(request.method)
+    if request.method == 'POST':
+        if id:= kwargs.get('id'):
+            password =request.POST.get('password')
+            # /main_pass = request.POST.get('confirm_password')
+            user = User.objects.get(id=id)
+            print(user)
+            user.set_password(password)
+            user.save()
+        else:
+            print("Id not found")
+            # messages.error(request,'Password did not match')
+    return render(request, 'change_pass.html')
+
+def get_published_blog(request):
+    blogs = Blog.objects.filter(is_published=True)
+    return render(request, 'bloglist.html', {'blogs':blogs})
+
+def get_blog(request):
+    blogs = Blog.objects.all()
+    return render(request, 'list_blog.html', {'blogs':blogs})
+
+    
     
 
 

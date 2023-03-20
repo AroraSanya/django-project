@@ -20,7 +20,7 @@
     </center>
         <form class="login-form" method="post">
             {% csrf_token %}
-            {{form}}
+            {{form.as_p}}
             <input type = 'submit' name = 'submit' style="color: black;margin-top: 20px" value="Submit">
            </form>
            

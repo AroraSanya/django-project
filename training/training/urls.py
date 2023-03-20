@@ -17,8 +17,8 @@ from django.contrib import admin
 from django.urls import path
 from django.views.decorators.csrf import csrf_exempt
 # from django.confimport setting
-from blog.views import create_blog,list_all_blogs,update_blog,delete_blog, login_user,home,logout_user,registered_user
-from product.views import create_product,list_all_products,delete_product,add_to_cart,del_cart, cart_list,login,register_user
+from blog.views import create_blog,list_all_blogs,update_blog,delete_blog,login_user,home,logout_user,registered_user,publish_blog,get_blog,update_user
+from product.views import create_product,list_all_products,delete_product,add_to_cart,del_cart, cart_list,login,register_user,home_product
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -31,12 +31,17 @@ urlpatterns = [
     path('demo/<int:id>/update',update_blog,name='updating'),
     path('demo/<int:id>/delete',delete_blog,name='deleting'),
     path('login/',login_user,name='bloglogin'),
+    
+    path('change_pass/',update_user,name='pasword_update'),
     path('logout/',logout_user,name='logout'),
     path('registered/',registered_user,name='registered'),
+    path('publish/',publish_blog,name='published'),
+    path('publish/blog_list',get_blog,name='get-blog'),
+    
     
 
 
-
+    path('producthome',home_product,name='product_home'),
     path('productcreate',create_product,name='create'),
     path('product/list',list_all_products,name='all_product'),
     path('product/delete',delete_product),
@@ -45,6 +50,7 @@ urlpatterns = [
     # path('register/user',registered_user),
     path('cart/list', cart_list),
     path('register/', register_user,name='register'),
+    path('login_product/',login,name='login'),
     
    
 ]

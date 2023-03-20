@@ -1,12 +1,16 @@
 from django.http import HttpResponse
 from django.shortcuts import render,redirect
 from django.contrib.auth.models import User
-from .forms import ProductForm,RegisterForms
+from .forms import ProductForm,RegisterForms,login_product
 from .models import Product,Cart
 from product.cart_helper import add_cart,delete_cart,register_user,login
 from django.contrib.auth import authenticate,login
 
 # Create your views here.
+def home_product(request):
+    return render(request,'index_product.html')
+
+
 def register_user(request):
     form=RegisterForms()
     if request.method=='POST':
@@ -60,6 +64,7 @@ def register(request):
     return render(request,'register.html')
 
 def login(request):
+    form = login_product()
     if request.method == "POST":
         print(request.user)
         name = request.POST.get('fname')
@@ -71,7 +76,7 @@ def login(request):
             return redirect('Base.html')
         else:
             return HttpResponse("please enter valid details for login ")
-    return render(request,'login.html')
+    return render(request,'login.html',{'form':form})
 
 
 # # def add_to_cart(request,**kwargs):

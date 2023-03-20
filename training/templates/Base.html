@@ -17,10 +17,11 @@
     <a class="navbar-brand" href="#">DAIRY</a>
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
       <div class="navbar-nav">
-      <li class="active"><a href="#">Home</a></li>
+      <li class="active"><a href="{% url 'product_home'%}">Home</a></li>
       <li><a href="{% url 'login' %}">LOGIN</a></li>
       <li><a href="{% url 'registered' %}">REGISTER</a></li>
       <li><a href="{% url 'create' %}">CREATE_PRODUCTS</a></li>
+      <li><a href="{% url 'create' %}">List_PRODUCTS</a></li>
       </div>
     </div>
   </nav>
