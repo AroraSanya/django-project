@@ -1,35 +1,47 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-{% load static %}
-<link rel="stylesheet" href="{% static 'css/style.css' %}">
-<style>
-  .navbar-nav{
-    display: flex;
-    justify-content: space-around;
-    font-size: large;
-  }  
-</style>
-</head>
-<body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="#">DAIRY</a>
-    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-      <div class="navbar-nav">
-      <li class="active"><a href="{% url 'product_home'%}">Home</a></li>
-      <li><a href="{% url 'login' %}">LOGIN</a></li>
-      <li><a href="{% url 'registered' %}">REGISTER</a></li>
-      <li><a href="{% url 'create' %}">CREATE_PRODUCTS</a></li>
-      <li><a href="{% url 'create' %}">List_PRODUCTS</a></li>
-      </div>
-    </div>
-  </nav>
-  {% block content %}
     
-  {% endblock %}  
-  </html>
+  <!DOCTYPE html>
+  <html lang="en">
+  <head>
+    <title>Bootstrap</title>
+    <meta charset="utf-8">
+    <meta name="viewport"
+      content="width=device-width, initial-scale=1">
+      {% comment %} {% load static %} {% endcomment %}
+      <style>
+        .navbar-nav{
+          display: flex;
+          justify-content: space-around;
+          font-size: large;
+        }  
+      </style>
+    <link rel="stylesheet" href=
+  "https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src=
+  "https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js">
+    </script>
+    <script src=
+  "https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js">
+    </script>
+  </head>
+  <body>
+    <nav class="navbar navbar-inverse">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="#">
+            PRODUCTS</a>
+        </div>
+        <ul class="nav navbar-nav">
+          <li class="active"><a href="{% url 'product_home'%}">Home</a></li>
+          <li><a href="{% url 'login' %}">LOGIN</a></li>
+          <li><a href="{% url 'registered' %}">REGISTER</a></li>
+          <li><a href="{% url 'create' %}">CREATE_PRODUCTS</a></li>
+          <li><a href="{% url 'create' %}">List_PRODUCTS</a></li>
+          </div>
+        </div>
+      </nav>
+    {% block content %}
+      
+    {% endblock %} 
   </body>
-  <div class="container">
-   
-    </div>
+  </html>
+  

@@ -1,4 +1,4 @@
-{% extends 'blog_header.html' %}
+{% extends 'base.html' %}
 {% block content %}
 
 
@@ -6,6 +6,7 @@
 	<form method='post'>
         {% csrf_token %}
         {{form}}
+        <input type = 'submit' name = 'submit' style="color: black;margin-top: 20px" value="Submit">
     </form>
 	
 

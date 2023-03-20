@@ -82,6 +82,7 @@ def login_user(request):
         if user is not None:
             login(request,user)
             print(request.user)
+            return redirect('/demo/list')
         else:
             return HttpResponse("please enter valid details for login ")
     return render(request,'blog_login.html',{'form':form})
@@ -103,6 +104,7 @@ def update_user(request,**kwargs):
     print(request.method)
     if request.method == 'POST':
         if id:= kwargs.get('id'):
+            print(request.POST)
             password =request.POST.get('password')
             # /main_pass = request.POST.get('confirm_password')
             user = User.objects.get(id=id)

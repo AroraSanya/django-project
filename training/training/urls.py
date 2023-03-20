@@ -30,8 +30,7 @@ urlpatterns = [
     path('demo/list',list_all_blogs,name='listing'),
     path('demo/<int:id>/update',update_blog,name='updating'),
     path('demo/<int:id>/delete',delete_blog,name='deleting'),
-    path('login/',login_user,name='bloglogin'),
-    
+    path('login/',login_user,name='bloglogin'),  
     path('change_pass/',update_user,name='pasword_update'),
     path('logout/',logout_user,name='logout'),
     path('registered/',registered_user,name='registered'),
