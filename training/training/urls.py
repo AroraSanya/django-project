@@ -17,13 +17,16 @@ from django.contrib import admin
 from django.urls import path
 from django.views.decorators.csrf import csrf_exempt
 # from django.confimport setting
-from blog.views import create_blog,list_all_blogs,update_blog,delete_blog,login_user,home,logout_user,registered_user,publish_blog,get_blog,update_user
+from blog.views import update_blog,delete_blog,login_user,home,logout_user,registered_user,publish_blog,update_user,publish_blog,CreateFormview, create_blog, list_all_blogs, Blogview
 from product.views import create_product,list_all_products,delete_product,add_to_cart,del_cart, cart_list,login,register_user,home_product
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('create/blog',CreateFormview.as_view(),name='create-blog'),
+    path('del/blog',Blogview.as_view(),name='blog'),
+
+
     path('',home,name='home page'),
-   
     # path('hi/',csrf_exempt(hello)),
     # path('form/',form_view),
     path('demo/create',create_blog,name='creating'),
@@ -34,8 +37,9 @@ urlpatterns = [
     path('change_pass/',update_user,name='pasword_update'),
     path('logout/',logout_user,name='logout'),
     path('registered/',registered_user,name='registered'),
-    path('publish/',publish_blog,name='published'),
-    path('publish/blog_list',get_blog,name='get-blog'),
+    # path('publish/',publish_blog,name='published')
+    path('publish/blog_publish/<int:id>',publish_blog,name='publish-blog'),
+
     ###################################
     path('producthome',home_product,name='product_home'),
     path('productcreate',create_product,name='create'),

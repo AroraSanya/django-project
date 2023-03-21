@@ -7,7 +7,7 @@
        <p>{{blog.description}}</p>
        <em>{{blog.author}}</em><br>
        <br>
-       <a href = "{%url 'updating' blog.id%}">Edit</a> || <a href="{%url 'deleting' blog.id%}">Delete</a>   
+       <a href = "{%url 'updating' blog.id%}">Edit</a> || <a href="{%url 'deleting' blog.id%}">Delete</a> ||<a href="{%url 'publish-blog' blog.id%}">Published</a>
        <hr> 
     {%endfor%}
 </div>
