@@ -7,8 +7,27 @@ from blog.models import Blog
 from django.conf import settings 
 from django.contrib.auth.decorators import permission_required
 from django.contrib.auth import authenticate,login,logout
+from django.views import View
     
+  
 
+class CreateFormview(View):
+     form=BlogForm()
+     def get(self,request):
+            form=BlogForm(request.POST)
+            return render(request,'create.html', {'form':form})
+
+     def post(self,request):
+            form =BlogForm(request.POST)
+            if form.is_valid():
+                form.save()
+            blog=Blog.objects.all()
+            return render(request, 'blog_list.html', {'blog':blog})
+
+class Blogview(View):
+    def get(self,request):
+        blog=Blog.objects.all()
+        return render(request,'blog_list.html',{'blog':blog}) 
 
 def home(request):
     return render(request,'blog_index.html')
@@ -23,32 +42,34 @@ def registered_user(request):
         user.save()
     return render(request,'register_blog.html', {'form': form})
 
-# @permission_required('blog.add_blog')
+
+# # @permission_required('blog.add_blog')
 def create_blog(request): 
     form_blog = BlogForm()
     if request.method == 'POST':
         form_blog = BlogForm(request.POST)
         if form_blog.is_valid():
             blog = form_blog.save()
-            blog.is_published = True
             blog.save()
             return redirect('/demo/list')
     return render(request,'create.html', {'form': form_blog})
-    
+                
+
+
 
 def list_all_blogs(request):
-    blog = Blog.objects.all()
+    blog  = Blog.objects.all()
     return render(request,'list_all.html',{'blog':blog})
     
 
 # def get_blogs(request):
 #     if request.method  == 'GET':
 #             blogs  = Blog.objects.all()
-#     return render(request, , {'blogs':blogs})
+#     return render(request, 'blog_list.html', {'blogs':blogs})
 
 
 
-@permission_required('blog.change_blog')
+# @permission_required('blog.change_blog')
 def update_blog(request,**kwargs):
     form = BlogForm()
     if request.method == 'POST':
@@ -91,7 +112,7 @@ def logout_user(request):
     logout(request)
     return redirect('home page')
 
-@permission_required('UserApi.can_publish', raise_exception=True)
+# @permission_required('UserApi.can_publish', raise_exception=True)
 def publish_blog(request, **kwargs):
     if request.method == 'GET':
         if id:= kwargs.get('id'):
@@ -116,13 +137,11 @@ def update_user(request,**kwargs):
             # messages.error(request,'Password did not match')
     return render(request, 'change_pass.html')
 
-def get_published_blog(request):
-    blogs = Blog.objects.filter(is_published=True)
-    return render(request, 'bloglist.html', {'blogs':blogs})
+# def get_published_blog(request):
+#     blogs = Blog.objects.filter(is_published=True)
+#     return render(request, 'bloglist.html', {'blogs':blogs})
 
-def get_blog(request):
-    blogs = Blog.objects.all()
-    return render(request, 'list_blog.html', {'blogs':blogs}) 
+
 
     
     
