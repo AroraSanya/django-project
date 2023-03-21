@@ -22,12 +22,12 @@ class CreateFormview(View):
             if form.is_valid():
                 form.save()
             blog=Blog.objects.all()
-            return render(request, 'blog_list.html', {'blog':blog})
+            return render(request, 'blog_list.html', {'blogs':blog})
 
 class Blogview(View):
     def get(self,request):
         blog=Blog.objects.all()
-        return render(request,'blog_list.html',{'blog':blog}) 
+        return render(request,'blog_list.html',{'blogs':blog}) 
     # def delete(self,request):
 
 def home(request):

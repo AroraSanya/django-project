@@ -25,6 +25,7 @@ class BlogForm(forms.ModelForm):
     class Meta:
         model = Blog
         fields ='__all__'
+        exclude=['is_published']
 
 class Login_form(forms.ModelForm):
     class Meta:
