@@ -26,7 +26,7 @@ urlpatterns = [
     path('del/blog',Blogview.as_view(),name='blog'),
 
 
-    path('',home,name='home page'),
+    path('product_home',home,name='home page'),
     # path('hi/',csrf_exempt(hello)),
     # path('form/',form_view),
     # path('demo/create',create_blog,name='creating'),
@@ -41,7 +41,7 @@ urlpatterns = [
     path('publish/blog_publish/<int:id>',publish_blog,name='publish-blog'),
 
     ###################################
-    path('producthome',home_product,name='product_home'),
+    path('',home_product,name='product_home'),
     path('productcreate',create_product,name='create'),
     path('product/list',list_all_products,name='product-list'),
     path('product/delete',delete_product),
