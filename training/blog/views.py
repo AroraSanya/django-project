@@ -28,6 +28,7 @@ class Blogview(View):
     def get(self,request):
         blog=Blog.objects.all()
         return render(request,'blog_list.html',{'blog':blog}) 
+    # def delete(self,request):
 
 def home(request):
     return render(request,'blog_index.html')
@@ -43,16 +44,16 @@ def registered_user(request):
     return render(request,'register_blog.html', {'form': form})
 
 
-# # @permission_required('blog.add_blog')
-def create_blog(request): 
-    form_blog = BlogForm()
-    if request.method == 'POST':
-        form_blog = BlogForm(request.POST)
-        if form_blog.is_valid():
-            blog = form_blog.save()
-            blog.save()
-            return redirect('/demo/list')
-    return render(request,'create.html', {'form': form_blog})
+# # # @permission_required('blog.add_blog')
+# def create_blog(request): 
+#     form_blog = BlogForm()
+#     if request.method == 'POST':
+#         form_blog = BlogForm(request.POST)
+#         if form_blog.is_valid():
+#             blog = form_blog.save()
+#             blog.save()
+#             return redirect('/demo/list')
+#     return render(request,'create.html', {'form': form_blog})
                 
 
 

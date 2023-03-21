@@ -17,7 +17,7 @@ from django.contrib import admin
 from django.urls import path
 from django.views.decorators.csrf import csrf_exempt
 # from django.confimport setting
-from blog.views import update_blog,delete_blog,login_user,home,logout_user,registered_user,publish_blog,update_user,publish_blog,CreateFormview, create_blog, list_all_blogs, Blogview
+from blog.views import update_blog,delete_blog,login_user,home,logout_user,registered_user,publish_blog,update_user,publish_blog,CreateFormview, list_all_blogs, Blogview
 from product.views import create_product,list_all_products,delete_product,add_to_cart,del_cart, cart_list,login,register_user,home_product
 
 urlpatterns = [
@@ -29,7 +29,7 @@ urlpatterns = [
     path('',home,name='home page'),
     # path('hi/',csrf_exempt(hello)),
     # path('form/',form_view),
-    path('demo/create',create_blog,name='creating'),
+    # path('demo/create',create_blog,name='creating'),
     path('demo/list',list_all_blogs,name='listing'),
     path('demo/<int:id>/update',update_blog,name='updating'),
     path('demo/<int:id>/delete',delete_blog,name='deleting'),
