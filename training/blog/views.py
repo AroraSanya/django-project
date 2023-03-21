@@ -122,21 +122,18 @@ def publish_blog(request, **kwargs):
                 blog.save()
     return redirect('/demo/list')
 
-def update_user(request,**kwargs):
+def update_user(request):
     print(request.method)
     if request.method == 'POST':
-        if id:= kwargs.get('id'):
-            print(request.POST)
-            password =request.POST.get('password')
+            username = request.POST.get('username')
+            password = request.POST.get('password')
             # /main_pass = request.POST.get('confirm_password')
-            user = User.objects.get(id=id)
+            user = User.objects.get(username = username)
             print(user)
             user.set_password(password)
             user.save()
-        else:
-            print("Id not found")
-            # messages.error(request,'Password did not match')
-    return render(request, 'change_pass.html')
+            return redirect('home page')
+    return render(request,'change_pass.html')
 
 # def get_published_blog(request):
 #     blogs = Blog.objects.filter(is_published=True)

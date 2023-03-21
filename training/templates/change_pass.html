@@ -19,8 +19,11 @@
     </center>
         <form  method="post">
             {% csrf_token %}
+            <label for='username'> Enter Username:</label>
+            <input name="username" type ='password' type='password' placeholder='Username'>
+
             <label for='password'> Enter password:</label>
-           <input  type ='password' type='password' placeholder='Password'>
+           <input name = "password" type ='password' type='password' placeholder='Password'>
            <input type = 'Submit' name='submit'>
            
         </form>
