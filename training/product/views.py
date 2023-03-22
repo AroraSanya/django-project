@@ -7,6 +7,7 @@ from product.cart_helper import add_cart,delete_cart,register_user,login
 from django.contrib.auth import authenticate,login
 
 # Create your views here.
+
 def home_product(request):
     return render(request,'product_home.html')
 
@@ -54,6 +55,9 @@ def cart_list(request):
     cart= request.session['cart']
     print(cart)
     return render(request,'add_to_cart.html', {'cart':cart})
+
+def Contact_Us(request):
+    return render(request,'contact.html')
 
 # def registered_user(request):
 #     user_login=request.session['user_login']   

@@ -1,4 +1,4 @@
-{% extends 'Base_product.html' %}
+{% extends 'Base.html' %}
 {% block content %}
 <!DOCTYPE html>
 <html>
@@ -21,7 +21,7 @@
 		<div class="top">
 			<div class="left">
 				<div class="content">
-					<h2>Sign Up</h2>
+					{% comment %} <h2>Sign Up</h2> {% endcomment %}
 					<form method="post">
 						{%csrf_token%}
 						{{form.as_p}}

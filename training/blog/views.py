@@ -27,7 +27,7 @@ class CreateFormview(View):
 class Blogview(View):
     def get(self,request):
         blog=Blog.objects.all()
-        return render(request,'blog_list.html',{'blogs':blog}) 
+        return render(request,'product_home.html',{'blogs':blog}) 
     # def delete(self,request):
 
 def home(request):

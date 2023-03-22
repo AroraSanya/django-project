@@ -15,3 +15,5 @@ class login_product(forms.ModelForm):
     class Meta:
         model=User
         fields=('username','password') 
+
+
