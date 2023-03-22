@@ -34,22 +34,22 @@ def delete_cart(request,**kwargs):
                 cart.remove(i)
         request.session['cart']  = cart
             
-        return request.session['cart']        
+        return request.session['cart/del']        
 
-def register_user(request):
-    # form = RegisterForms()
-    if request.method == 'POST':
-        # print(request.POST)
-        # import pdb; pdb.set_trace()
-        print(request.user)
-        username = request.POST.get('username')
-        password = request.POST.get('password')
-        user = User.objects.create_user(username=username, password =password)
-        user.save()
+# def register_user(request):
+#     # form = RegisterForms()
+#     if request.method == 'POST':
+#         # print(request.POST)
+#         # import pdb; pdb.set_trace()
+#         print(request.user)
+#         username = request.POST.get('username')
+#         password = request.POST.get('password')
+#         user = User.objects.create_user(username=username, password =password)
+#         user.save()
     
-    return render(request, 'register.html')
+#     return render(request, 'register.html')
     
-# def login(request):
+# # def login(request):
 #     if request.method == "POST":
 #         print(request.user)
 #         name = request.POST.get('fname')

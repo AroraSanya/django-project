@@ -550,31 +550,33 @@ footer {
         <a href="#">
           <ion-icon name="close" class="close"></ion-icon>
         </a>
-
-      
-        {% comment %} <ul>
-          <li><a href="{% url 'login' %}">LOGIN</a></li>
-          <li><a href="{% url 'registered' %}">REGISTER</a></li>
+        <ul>
           <li><a href="#" class="under">HOME</a></li>
-         <li><a href="#" class="under">SHOP</a></li>
           <li><a href="{% url 'login' %}">LOGIN</a></li>
-          <li><a href="{% url 'registered' %}">REGISTER</a></li> 
-          <li><a href="#" class="under">OUR PRODUCTS</a></li>
+          <li><a href="{% url 'register' %}">REGISTER</a></li>
+         <li><a href="#" class="under">SHOP</a></li>
+          <!-- <li><a href="{% url 'login' %}">LOGIN</a></li>
+          <li><a href="{% url 'registered' %}">REGISTER</a></li>  -->
           <li><a href="#" class="under">CONTACT US</a></li>
           <li><a href="#" class="under">ABOUT US</a></li>
-        </ul> {% endcomment %}
+       
+        
+        </ul> 
       </div>
-              
+        
       <div class="dropdown">
-        <span> PRODUCTS</span>
+        <span>Our PRODUCTS</span>
         <div class="dropdown-content">
           <ul>
             <li><a href="{% url 'create' %}">Add Products</a></li>
             <li><a href="{% url 'product-list' %}">Products list</a></li>
+
             
           </ul>
+        
         </div>
       </div>
+    
       <div class="search">
   
         <a href=""><input type="text" placeholder="search products" id="input">
@@ -583,14 +585,18 @@ footer {
       </div>
       <div class="heading">
         <ul>
-          <li><a href="{% url 'product_home'%}">HOME</a></li>
+           <li><a href="{% url 'product_home'%}">HOME</a></li>
+           {% if request.user.is_authenticated %}
+           <li><a href="{% url 'logout'%}">LOGOUT</a></li>
+           {%else%}
           <li><a href="{% url 'login'%}">LOGIN</a></li>
-          <li><a href="{% url 'registered' %}">REGISTER</a></li> 
-          {% comment %} <li><a href="#" class="under">SHOP</a></li> {% endcomment %}
-          {% comment %} <li><a href="#" class="under">OUR PRODUCTS</a></li> {% endcomment %}
-          
+          <li><a href="{% url 'register'%}">REGISTER</a></li> 
+          {% endif %}
+          <li><a href="#" class="under">SHOP</a></li> 
           <li><a href='#'>WISHLIST</a></li>
           <li><a href="{% url 'contactus' %}" class="under">CONTACT US</a></li>
+      
+  
         </ul>
         </div>     
         

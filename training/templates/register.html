@@ -1,38 +1,15 @@
+
 {% extends 'Base.html' %}
 {% block content %}
-<!DOCTYPE html>
-<html>
-
-<head>
-	<meta name="viewport" content=
-		"width=device-width, initial-scale=1" />
-</head>
 
 
-<body>
     <h1>Register</h1>
-	<div id="background">
-		<div class="background-Right"></div>
-		<div class="background-Left"></div>
-       
-	</div>
+	<form method='post'>
+        {% csrf_token %}
+        {{form.as_p}}
+        <input type = 'submit' name = 'submit' style="color: black;margin-top: 20px" value="Submit">
+    </form>
+	
 
-	<div id="slide">
-		<div class="top">
-			<div class="left">
-				<div class="content">
-					{% comment %} <h2>Sign Up</h2> {% endcomment %}
-					<form method="post">
-						{%csrf_token%}
-						{{form.as_p}}
-				
-					</form>
-                    <input type = 'submit' name = 'submit' style="color: black;margin-top: 20px" value="Submit">
-				</div>
-			</div>
-		</div>
-	</div>%
-</body>
-
-</html>
 {% endblock %}
+

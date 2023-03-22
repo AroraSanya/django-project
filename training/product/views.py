@@ -3,8 +3,9 @@ from django.shortcuts import render,redirect
 from django.contrib.auth.models import User
 from .forms import ProductForm,RegisterForms,login_product
 from .models import Product,Cart
-from product.cart_helper import add_cart,delete_cart,register_user,login
-from django.contrib.auth import authenticate,login
+from product.cart_helper import add_cart,delete_cart,login
+from django.contrib.auth import authenticate,login as auth,logout
+from django.contrib import messages
 
 # Create your views here.
 
@@ -15,10 +16,12 @@ def home_product(request):
 def register_user(request):
     form=RegisterForms()
     if request.method=='POST':
-        userName = request.POST.get('username', None)
-        userPass = request.POST.get('password', None)
-        user = User.objects.create_user(userName, userPass)
+        username = request.POST.get('username', None)
+        userpass = request.POST.get('password', None)
+        user = User.objects.create_user(username=username,password=userpass)
         user.save()
+        print(request.user)
+        messages.success(request,'Register Successfully')
     return render(request,'register.html', {'form': form})
 
     
@@ -64,33 +67,37 @@ def Contact_Us(request):
 #     return render(request)  
 
 
-def register(request):
-    return render(request,'register.html')
+# def register(request):
+#     return render(request,'register.html')
 
 def login(request):
     form = login_product()
     if request.method == "POST":
         print(request.user)
-        name = request.POST.get('fname')
+        name= request.POST['username']
         password = request.POST.get('password')
-        user = authenticate(request,name,password)
+        user = authenticate(request,username=name,password=password)
         if user is not None:
-            login(request,user)
+            print("yes")
+            auth(request,user)
             print(request.user)
-            return redirect('Base.html')
+            return redirect('home page')
         else:
-            return HttpResponse("please enter valid details for login ")
+            print("please enter valid details for login ")
     return render(request,'login.html',{'form':form})
 
+def logout_user_pro(request):
+    logout(request)
+    return render(request,'product_home.html')
 
-# # def add_to_cart(request,**kwargs):
-# #     if id:=kwargs.get('id'):
-# #         product=Product.objects.get(id=id)
-# #         # print(product.id)
-# #         cart = Cart.objects.create(product1_id=product.id)
-# #         cart.save()
-# #     cart=Cart.objects.all()
-# #     return render(request,'add_to_cart.html',{'cart':cart})
+def add_to_cart(request,**kwargs):
+    if id:=kwargs.get('id'):
+        product=Product.objects.get(id=id)
+        # print(product.id)
+        cart = Cart.objects.create(product1_id=product.id)
+        cart.save()
+    cart=Cart.objects.all()
+    return render(request,'add_to_cart.html',{'cart':cart})
 # # WITH-----SESSION 
 # def add_to_cart(request,**kwargs):
 #     if id:=kwargs.get('id'):
@@ -102,12 +109,12 @@ def login(request):
 #         print(request.session['cart'])
 #     return render(request,'add_to_cart.html')
 
-# def delete_cart(request,**kwargs):
-#     if id:=kwargs.get('id'):
-#         cart = Cart.objects.get(id=id)
-#         cart.delete()
-#     cart = Cart.objects.all()
-#     return render(request,'add_to_cart.html', {'cart': cart})
+def delete_cart(request,**kwargs):
+    if id:=kwargs.get('id'):
+        cart = Cart.objects.get(id=id)
+        cart.delete()
+    cart = Cart.objects.all()
+    return render(request,'list_all_product.html', {'cart': cart})
 
 
 
