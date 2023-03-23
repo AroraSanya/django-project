@@ -570,6 +570,7 @@ footer {
           <ul>
             <li><a href="{% url 'create' %}">Add Products</a></li>
             <li><a href="{% url 'product-list' %}">Products list</a></li>
+            <li><a href="{% url 'create' %}">create list</a></li>
 
             
           </ul>
@@ -588,8 +589,10 @@ footer {
            <li><a href="{% url 'product_home'%}">HOME</a></li>
            {% if request.user.is_authenticated %}
            <li><a href="{% url 'logout'%}">LOGOUT</a></li>
+           <li><a href="{% url 'cart-list'%}">CART</a></li>
            {%else%}
           <li><a href="{% url 'login'%}">LOGIN</a></li>
+          
           <li><a href="{% url 'register'%}">REGISTER</a></li> 
           {% endif %}
           <li><a href="#" class="under">SHOP</a></li> 

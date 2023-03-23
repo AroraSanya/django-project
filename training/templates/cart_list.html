@@ -12,7 +12,7 @@
   
   <div class="container">
     <div class="row">
-    {% for p in page_o %}
+    {% for p in Cart %}
       <div class="col-md-4 mb-3">
         <div class="card h-100">
           <div class="d-flex justify-content-between position-absolute w-100">
@@ -35,7 +35,7 @@
           <div class="card-body px-2 pb-2 pt-1">
             <div class="d-flex justify-content-between">
               <div>
-                <p class="h4 text-primary">{{p.price}}</p>
+                <p class="h4 text-primary">{{p.product1.price}}</p>
               </div>
               <div>
                 <a href="#" class="text-secondary lead" data-toggle="tooltip" data-placement="left" title="Compare">
@@ -52,19 +52,19 @@
             </p>
             <p class="mb-0">
               <strong>
-                <a href="#" class="text-secondary">{{p.name}}</a>
+                <a href="#" class="text-secondary">{{p.product1.name}}</a>
               </strong>
             </p>
-            {% comment %} <p class="mb-1">
+            <p class="mb-1">
               <small>
                 <a href="#" class="text-secondary">Brands</a>
               </small>
             </p>
-             {% endcomment %}
+            
             <div class="d-flex justify-content-between">
               <div class="col px-0">
-                <a  href='{%  url 'add_cart' p.id %}'  class="btn btn-outline-primary btn-block">
-                  Add To Cart 
+                <a  href='{%  url 'delete-cart' p.id %}'  class="btn btn-outline-primary btn-block">
+                  Remove to Cart  
                   <i class="fa fa-shopping-basket" aria-hidden="true"></i>
                 </a>
               </div>
@@ -79,27 +79,19 @@
       </div>
   
      {% endfor %} 
+     
+  <div class="d-flex justify-content-between">
+    <div class="col px-0">
+      <a  href='checkout.html'  class="btn btn-outline-primary btn-block">
+        Checkout  
+        <i class="fa fa-shopping-basket" aria-hidden="true"></i>
+      </a>
+    </div>
     </div>
   </div>
   
+  <h1>TOTAL AMOUNT : RS {{amount}}</h1>
+
   
-<div class="pagination">
-  <span class="step-links">
-      {% if page_obj.has_previous %}
-          <a href="?page=1">&laquo; first</a>
-          <a href="?page={{ page_obj.previous_page_number }}">previous</a>
-      {% endif %}
-
-      <span class="current">
-          Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
-      </span>
-
-      {% if page_obj.has_next %}
-          <a href="?page={{ page_obj.next_page_number }}">next</a>
-          <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
-      {% endif %}
-  </span>
-</div>
-
 {% endblock%}
     

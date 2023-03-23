@@ -3,10 +3,10 @@ from django.shortcuts import render,redirect
 from django.contrib.auth.models import User
 from .forms import ProductForm,RegisterForms,login_product
 from .models import Product,Cart
-from product.cart_helper import add_cart,delete_cart,login
+from product.cart_helper import login
 from django.contrib.auth import authenticate,login as auth,logout
 from django.contrib import messages
-
+from django.core.paginator import Paginator
 # Create your views here.
 
 def home_product(request):
@@ -35,7 +35,10 @@ def create_product(request):
     
 def list_all_products(request):
     product = Product.objects.all()
-    return render(request,'list_all_product.html', {'product': product})    
+    paginator = Paginator(product, 5) # Show 25 contacts per page.
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    return render(request,'list_all_product.html', {'page_obj': page_obj})    
 
 def delete_product(request,**kwargs):
     if id:=kwargs.get('id'):
@@ -46,29 +49,29 @@ def delete_product(request,**kwargs):
 
 
 def add_to_cart(request,**kwargs):
-    helper_cart=add_cart(request,**kwargs)
-    return redirect('cart/list')
+     if id:=kwargs.get('id'):
+            product = Product.objects.get(id=id)
+            Cart.objects.create(product1_id=product.pk,quantity=1)
+     return redirect('cart-list')
+
+   
 
 def del_cart(request,**kwargs):
-    cart=delete_cart(request,**kwargs)
-    print(cart)
-    return redirect('/cart/list')
+    if id:=kwargs.get('id'):
+            cart= Cart.objects.get(id=id)
+            cart.delete()
+    return redirect('cart-list')
 
 def cart_list(request):
-    cart= request.session['cart']
-    print(cart)
-    return render(request,'add_to_cart.html', {'cart':cart})
+    cart = Cart.objects.all()
+    for p in cart:
+        print(p.product1.price)
+    total_price  = sum(p.product1.price  for p in cart )
+    return render(request,'cart_list.html', {'Cart': cart, 'amount':total_price}) 
 
 def Contact_Us(request):
     return render(request,'contact.html')
 
-# def registered_user(request):
-#     user_login=request.session['user_login']   
-#     return render(request)  
-
-
-# def register(request):
-#     return render(request,'register.html')
 
 def login(request):
     form = login_product()
@@ -90,14 +93,14 @@ def logout_user_pro(request):
     logout(request)
     return render(request,'product_home.html')
 
-def add_to_cart(request,**kwargs):
-    if id:=kwargs.get('id'):
-        product=Product.objects.get(id=id)
-        # print(product.id)
-        cart = Cart.objects.create(product1_id=product.id)
-        cart.save()
-    cart=Cart.objects.all()
-    return render(request,'add_to_cart.html',{'cart':cart})
+# def add_to_cart(request,**kwargs):
+#     if id:=kwargs.get('id'):
+#         product=Product.objects.get(id=id)
+#         # print(product.id)
+#         cart = Cart.objects.create(product1_id=product.id)
+#         cart.save()
+#     cart=Cart.objects.all()
+#     return render(request,'add_to_cart.html',{'cart':cart})
 # # WITH-----SESSION 
 # def add_to_cart(request,**kwargs):
 #     if id:=kwargs.get('id'):
@@ -109,12 +112,20 @@ def add_to_cart(request,**kwargs):
 #         print(request.session['cart'])
 #     return render(request,'add_to_cart.html')
 
-def delete_cart(request,**kwargs):
-    if id:=kwargs.get('id'):
-        cart = Cart.objects.get(id=id)
-        cart.delete()
-    cart = Cart.objects.all()
-    return render(request,'list_all_product.html', {'cart': cart})
+# def delete_cart(request,**kwargs):
+#     if id:=kwargs.get('id'):
+#         cart = Cart.objects.get(id=id)
+#         cart.delete()
+#     cart = Cart.objects.all()
+#     return render(request,'list_all_product.html', {'cart': cart})
 
 
+
+# def registered_user(request):
+#     user_login=request.session['user_login']   
+#     return render(request)  
+
+
+# def register(request):
+#     return render(request,'register.html')
 
