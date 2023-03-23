@@ -35,7 +35,7 @@ def create_product(request):
     
 def list_all_products(request):
     product = Product.objects.all()
-    paginator = Paginator(product, 5) # Show 25 contacts per page.
+    paginator = Paginator(product, 3) # Show 25 contacts per page.
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
     return render(request,'list_all_product.html', {'page_obj': page_obj})    
@@ -64,8 +64,9 @@ def del_cart(request,**kwargs):
 
 def cart_list(request):
     cart = Cart.objects.all()
-    for p in cart:
-        print(p.product1.price)
+    print(cart)
+    # for p in cart:
+    #     print(p.product1.price)
     total_price  = sum(p.product1.price  for p in cart )
     return render(request,'cart_list.html', {'Cart': cart, 'amount':total_price}) 
 
