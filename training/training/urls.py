@@ -18,7 +18,7 @@ from django.urls import path
 from django.views.decorators.csrf import csrf_exempt
 # from django.confimport setting
 from blog.views import update_blog,delete_blog,login_user,home,logout_user,registered_user,publish_blog,update_user,publish_blog,CreateFormview, list_all_blogs, Blogview
-from product.views import create_product,list_all_products,delete_product,add_to_cart,del_cart, cart_list,login,register_user,home_product,Contact_Us,logout_user_pro
+from product.views import create_product,list_all_products,delete_product,add_to_cart,del_cart, cart_list,login,register_user,home_product,Contact_Us,logout_user_pro,add_wishlist
 
 urlpatterns = [
     path('',home_product,name='product_home'),
@@ -55,7 +55,8 @@ urlpatterns = [
 
     path('register/', register_user,name='register'),
     path('login_product/',login,name='login'),
-     path('contact/',Contact_Us,name='contactus'),
+    path('contact/',Contact_Us,name='contactus'),
+    path('wishlist-product/',add_wishlist,name='wishlist'),
     
    
 ]
