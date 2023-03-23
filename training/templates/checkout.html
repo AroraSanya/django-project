@@ -12,7 +12,7 @@
   
   <div class="container">
     <div class="row">
-    {% for p in Cart %}
+    {% for p in cart %}
       <div class="col-md-4 mb-3">
         <div class="card h-100">
           <div class="d-flex justify-content-between position-absolute w-100">
@@ -80,17 +80,20 @@
   
      {% endfor %} 
      
+ 
+  <h2>{{address.name}}</h2>
+  <h2>{{address.address1}}</h2>
+  <h2>{{address.address2}}</h2>
+  <h1>TOTAL AMOUNT : RS {{total}}</h1>
   <div class="d-flex justify-content-between">
     <div class="col px-0">
-      <a  href=''  class="btn btn-outline-primary btn-block">
+      <a  href='{%  url 'order' %}'  class="btn btn-outline-primary btn-block">
         Ordernow 
         <i class="fa fa-shopping-basket" aria-hidden="true"></i>
       </a>
     </div>
     </div>
   </div>
-  
-  <h1>TOTAL AMOUNT : RS {{amount}}</h1>
 
   
 {% endblock%}

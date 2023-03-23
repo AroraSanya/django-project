@@ -68,6 +68,10 @@
                   <i class="fa fa-shopping-basket" aria-hidden="true"></i>
                 </a>
               </div>
+              <a href='{%  url 'increment' p.id %}'>+</a>
+              <input type='text' value="{{p.quantity}}"/>
+              <a href='{%  url 'decrement' p.id %}'>-</a>
+              
               <div class="ml-2">
                 <a href="#" class="btn btn-outline-success" data-toggle="tooltip" data-placement="left" title="Add to Wishlist">
                   <i class="fa fa-heart" aria-hidden="true"></i>
@@ -77,12 +81,14 @@
           </div>
         </div>
       </div>
+
+
   
      {% endfor %} 
      
   <div class="d-flex justify-content-between">
     <div class="col px-0">
-      <a  href='checkout.html'  class="btn btn-outline-primary btn-block">
+      <a  href='{% url 'checkout' %}'  class="btn btn-outline-primary btn-block">
         Checkout  
         <i class="fa fa-shopping-basket" aria-hidden="true"></i>
       </a>

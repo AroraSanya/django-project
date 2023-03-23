@@ -1,0 +1,18 @@
+{% extends 'Base.html' %}
+{% block content %}
+<div class="container">
+    <div class="row">
+      <div class="col-xs-12">
+        <form class="form-horizontal" method="post" role="form" >
+            {% csrf_token %%}
+          <h2>Address</h2>
+          
+          {{form.as_p}}
+             
+          <button type="submit"> SUBMIT </button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+{%  endblock %}

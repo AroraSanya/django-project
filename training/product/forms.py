@@ -40,5 +40,45 @@ class login_product(forms.ModelForm):
                  }),
         }
 
-class 
+class order_form(forms.ModelForm):
+    class Meta:
+        model=Order
+        fields=('address','product','total_cost','user_id') 
+        # widgets = {
+        #     'order_id': forms.TextInput(attrs={
+        #         'class': "form-control",
+        #         'placeholder': 'Username'
+        #         }),
+        # }
+
+class AddressForm(forms.ModelForm):
+    class Meta:
+        model =AddressModel
+        fields = ('name','address1','address2','zip_code','city')
+        widgets ={
+            'name':forms.TextInput(attrs={
+                'class': "form-control",
+                'placeholder': 'Address'
+                }),
+                'address1': forms.TextInput(attrs={
+                'class': "form-control",
+                'placeholder': 'address'
+                }),
+                'address2':forms.TextInput(attrs={
+                'class': "form-control",
+                'placeholder': 'address'
+                }),
+                'zipcode':forms.TextInput(attrs={
+                'class': "form-control",
+                'placeholder': 'zip code'
+                }),
+                'city':forms.TextInput(attrs={
+                'class': "form-control",
+                'placeholder': 'city'
+                }),
+        }
+               
+
+
+
 
