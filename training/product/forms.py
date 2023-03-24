@@ -79,6 +79,25 @@ class AddressForm(forms.ModelForm):
         }
                
 
+# class profileForms(forms.Form):
+#     username = forms.CharField()
+#     password = forms.CharField(widget=forms.PasswordInput())
+#     email=forms.TextInput()
+#     widgets = {
+#             'username': forms.TextInput(attrs={
+#                 'class': "form-control",
+#                 'placeholder': 'Username'
+#                 }),
+#                  'password': forms.PasswordInput(attrs={
+#                 'class': "form-control",
+#                 'placeholder': 'Password'
+#                  }),
+#                 'email': forms.EmailInput(attrs={
+#                 'class': "form-control",
+#                 'placeholder': 'Email'
+#                 }), 
+#                 }              
+
 
 
 

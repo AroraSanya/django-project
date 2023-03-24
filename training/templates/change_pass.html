@@ -1,4 +1,4 @@
-{% extends 'blog_header.html' %}
+{% extends 'Base.html' %}
 {% block content %}
 <!DOCTYPE html>
 <html>
@@ -12,7 +12,7 @@
         <div class="login">
           <div class="login-header">
           <center>
-            <h3>CHANGE PASSWORD PAGE</h3>
+            <h3>CHANGE PASSWORD </h3>
             <p>Please enter your credentials to login.</p>
           </div>
         </div>
@@ -20,10 +20,10 @@
         <form  method="post">
             {% csrf_token %}
             <label for='username'> Enter Username:</label>
-            <input name="username" type ='password' type='password' placeholder='Username'>
+            <input name="username" type ='password' type='password' placeholder='Username'> <br>
 
             <label for='password'> Enter password:</label>
-           <input name = "password" type ='password' type='password' placeholder='Password'>
+           <input name = "password" type ='password' type='password' placeholder='Password'><br>
            <input type = 'Submit' name='submit'>
            
         </form>

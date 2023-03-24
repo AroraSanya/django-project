@@ -2,7 +2,7 @@ from django.http import HttpResponse
 from django.shortcuts import render,redirect
 from django.contrib.auth.models import User
 from .forms import ProductForm,RegisterForms,login_product,order_form,AddressForm
-from .models import Product,Cart,Order, AddressModel
+from .models import Product,Cart,Order, AddressModel,Wishlist
 from product.cart_helper import login
 from django.contrib.auth import authenticate,login as auth,logout
 from django.contrib import messages
@@ -12,6 +12,11 @@ from django.core.paginator import Paginator
 
 def home_product(request):
     return render(request,'product_home.html')
+
+# def profile(request):
+#     form=profileForms()
+#     return render(request,'profile_product.html',{'form':form})
+
 
 
 def register_user(request):
@@ -100,12 +105,24 @@ def Contact_Us(request):
 
 def add_wishlist(request,**kwargs):
     if pk := kwargs.get('pk'):
-        product = Product.objects.get(pk = pk)
-        wishlist = request.session.get('wishlist',[])
-        item = {'name_of_product':product.name, 'Price':product.price, 'Id':product.pk}
-        wishlist.append(item)
-        request.session['wishlist'] = wishlist
-    return render(request,'wishlist.html')
+        product = Product.objects.get(id = pk)
+        # wishlist = request.session.get('wishlist',[])
+        Wishlist.objects.create(user_id=request.user.id,product_id = product.pk)
+        # item = {'name_of_product':product.name, 'Price':product.price, 'Id':product.pk}
+        # wishlist.append(item)
+        # request.session['wishlist'] = wishlist
+    return redirect('get-wishlist')
+
+def get_wishlist(request):
+    wishlist  = Wishlist.objects.filter(user_id = request.user.id)
+    return render(request, 'wishlist.html', {'wishlist':wishlist})
+
+
+def del_to_wishlist(request,**kwargs):
+     if pk:= kwargs.get('id'):
+         wishlist = Wishlist.objects.get(id=pk)
+         wishlist.delete()
+     return render(request,'wishlist.html', {'wishlist':wishlist})
 
 
 def login(request):
@@ -119,13 +136,15 @@ def login(request):
             print("yes")
             auth(request,user)
             print(request.user)
-            return redirect('home page')
-        else:
-            print("please enter valid details for login ")
+            messages.success(request,'Login Successfully')
+        return redirect('home page')
+    else:
+        print("please enter valid details for login ")
     return render(request,'login.html',{'form':form})
 
 def logout_user_pro(request):
     logout(request)
+    messages.success(request,'Logout Successfully')
     return render(request,'product_home.html')
 
 def address_create(request):
@@ -157,6 +176,21 @@ def checkout(request):
     print(total_cost)
     return render(request, 'checkout.html', {'cart':cart,'total':total_cost, 'address':address})
 
+def profile_user(request):
+    return render(request,'profile_product.html')
+
+def change_password(request):
+    print(request.method)
+    if request.method == 'POST':
+            username = request.POST.get('username')
+            password = request.POST.get('password')
+            # /main_pass = request.POST.get('confirm_password')
+            user = User.objects.get(username = username)
+            print(user)
+            user.set_password(password)
+            user.save()
+            return redirect('login')
+    return render(request,'change_pass.html')
     
 
 # def add_to_cart(request,**kwargs):

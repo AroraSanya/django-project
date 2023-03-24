@@ -543,8 +543,15 @@ footer {
   </style>
   
   <body>
-    
+    {% for message in messages %}
+    <div class="alert {{message.tags}} alert-dismissible" role="alert">
+      {{message}}
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+  {% endfor %}
+
     <header>
+
       <div class="logo"><a href="#">ShoPperZ</a></div>
       <div class="menu">
         <a href="#">
@@ -565,12 +572,14 @@ footer {
       </div>
         
       <div class="dropdown">
-        <span>Our PRODUCTS</span>
+        <span>OUR PRODUCTS</span>
         <div class="dropdown-content">
           <ul>
             <li><a href="{% url 'create' %}">Add Products</a></li>
             <li><a href="{% url 'product-list' %}">Products list</a></li>
             <li><a href="{% url 'cart-list' %}">CART</a></li>
+            <li><a href="{% url 'get-wishlist' %}"> Wishlist</a></li>
+
 
             
           </ul>
@@ -595,9 +604,9 @@ footer {
           
           <li><a href="{% url 'register'%}">REGISTER</a></li> 
           {% endif %}
-          <li><a href="{% url 'wishlist' %}">WISHLIST</a></li>
           <li><a href="{% url 'contactus' %}" class="under">CONTACT US</a></li>
           <li><a href="{% url 'address-create' %}">SHIPPING</a></li>
+          <li><a href="{% url 'profile_user' %}">PROFILE</a></li>
           
       
   
