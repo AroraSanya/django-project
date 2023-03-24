@@ -104,7 +104,7 @@ def Contact_Us(request):
     return render(request,'contact.html')
 
 def add_wishlist(request,**kwargs):
-    if pk := kwargs.get('pk'):
+    if pk := kwargs.get('id'):
         product = Product.objects.get(id = pk)
         # wishlist = request.session.get('wishlist',[])
         Wishlist.objects.create(user_id=request.user.id,product_id = product.pk)
@@ -122,6 +122,7 @@ def del_to_wishlist(request,**kwargs):
      if pk:= kwargs.get('id'):
          wishlist = Wishlist.objects.get(id=pk)
          wishlist.delete()
+         return redirect('product_home')
      return render(request,'wishlist.html', {'wishlist':wishlist})
 
 
@@ -164,7 +165,7 @@ def order_create(request):
     cart = Cart.objects.filter(user_id_id=request.user.id)
     address = AddressModel.objects.get(user_id_id=request.user.id)
     for p in cart:
-        total_cost = p.product1.price
+        total_cost = int(p.quantity) * p.product1.price
         Order.objects.create(user_id_id=request.user.id, product_id=p.product1.pk,address_id=address.pk, total_cost=total_cost)
     return redirect('product_home')
 
@@ -172,7 +173,7 @@ def checkout(request):
     cart = Cart.objects.filter(user_id_id=request.user.id)
     address = AddressModel.objects.get(user_id_id=request.user.id)
 
-    total_cost = sum(p.product1.price for p in cart)
+    total_cost = sum(int(p.quantity) * p.product1.price for p in cart)
     print(total_cost)
     return render(request, 'checkout.html', {'cart':cart,'total':total_cost, 'address':address})
 

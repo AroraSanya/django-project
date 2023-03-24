@@ -59,7 +59,7 @@ urlpatterns = [
     path('contact/',Contact_Us,name='contactus'),
     path('wishlist-product/<int:id>',add_wishlist,name='wishlist'),
     path('wishlist-get/',get_wishlist,name='get-wishlist'),
-    path('wishlist-del/',del_to_wishlist,name='del-wishlist'),
+    path('wishlist-del/<int:id>',del_to_wishlist,name='del-wishlist'),
 
     path('order/product',order_create,name='order'),
     path('checkout', checkout , name='checkout'),
