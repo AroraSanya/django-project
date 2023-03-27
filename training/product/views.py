@@ -7,8 +7,15 @@ from product.cart_helper import login
 from django.contrib.auth import authenticate,login as auth,logout
 from django.contrib import messages
 from django.core.paginator import Paginator
+# from .models import MyModel
 
-# Create your views here.
+# def upload_picture(request):
+#     if request.method == 'POST':
+#         picture = request.FILES['picture']
+#         MyModel.objects.create(picture=picture)
+#         return render(request, 'success.html')
+#     return render(request, 'profile_product.html')
+
 
 def home_product(request):
     return render(request,'product_home.html')
@@ -34,7 +41,7 @@ def register_user(request):
 def create_product(request): 
     form_Product = ProductForm()
     if request.method == 'POST':
-        form_Product = ProductForm(request.POST)
+        form_Product = ProductForm(request.POST,request.FILES)
         if form_Product.is_valid():
             form_Product.save()
             return redirect('product_home')
@@ -45,7 +52,14 @@ def list_all_products(request):
     paginator = Paginator(product, 3) # Show 25 contacts per page.
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
-    return render(request,'list_all_product.html', {'page_obj': page_obj})    
+    return render(request,'list_all_product.html', {'page_obj': page_obj})   
+
+def product_details(request, **kwargs):
+      if id:=kwargs.get('id'):
+            product = Product.objects.get(id=id)
+            category= Product.objects.filter(category = product.category)
+      return render(request,'product_details.html',{'product':product,'category':category})
+
 
 def delete_product(request,**kwargs):
     if id:=kwargs.get('id'):
@@ -79,12 +93,7 @@ def decrement_item(request, **kwargs):
         print(cart.quantity)
         cart.save()
         return redirect('cart-list')
-    return render(request, 'cart_list.html')
-
-
-
-
-   
+    return render(request, 'cart_list.html')   
 
 def del_cart(request,**kwargs):
     if id:=kwargs.get('id'):
@@ -97,8 +106,8 @@ def cart_list(request):
     print(cart)
     # for p in cart:
     #     print(p.product1.price)
-    total_price  = sum(p.product1.price  for p in cart )
-    return render(request,'cart_list.html', {'Cart': cart, 'amount':total_price}) 
+    # total_price  = sum(p.product1.price  for p in cart )
+    return render(request,'cart_list.html', {'Cart': cart}) 
 
 def Contact_Us(request):
     return render(request,'contact.html')
@@ -133,7 +142,7 @@ def login(request):
         name= request.POST['username']
         password = request.POST.get('password')
         user = authenticate(request,username=name,password=password)
-        if user is not None:
+        if user is not None: 
             print("yes")
             auth(request,user)
             print(request.user)

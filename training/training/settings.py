@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 
 from pathlib import Path
 from django.contrib import messages
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -25,6 +26,11 @@ SECRET_KEY = 'django-insecure-6c!wtcu(8$vr@%bspxnd#@tuebrk0xbew7jz=f)^f$jkc!1feo
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
+
+
+# Path where media is stored
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
 
 ALLOWED_HOSTS = []
 
@@ -132,11 +138,7 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-import os
+
 STATIC_URL='/static/'
 STATIC_ROOT=os.path.join(BASE_DIR,'static')
 
-# MEDIA_URL = '/media/'
-
-# # Path where media is stored
-# MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')

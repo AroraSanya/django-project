@@ -6,6 +6,9 @@ class Product(models.Model):
     name =models.CharField(max_length=50)
     price=models.IntegerField()
     quality = models.TextField()
+    image  = models.ImageField(upload_to='images/',null=True)
+    category=models.CharField(max_length=50,null=True)
+    
 
 class Cart(models.Model):
   product1 = models.ForeignKey(Product, on_delete=models.CASCADE)

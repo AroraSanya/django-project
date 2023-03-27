@@ -3,6 +3,26 @@
 <style>
     body {
   font-size: 0.98rem;
+
+  {% comment %} .d-flex justify-content-between.col px-0.col px-0.ml-2{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    color: black;
+    opacity: 0.88;
+    background: #000;
+    color: #fff;
+    display: block;
+    width: 200px;
+    text-align: center;
+    font-size: 16px;
+    border-radius: 25px;
+    padding: 10px;
+    transition: 0.3s;
+    font-weight: 500;
+    margin-top: 20px;
+  } {% endcomment %}
 }
 </style>
 
@@ -13,16 +33,18 @@
   <div class="container">
     <div class="row">
     {% for p in page_obj %}
+
       <div class="col-md-4 mb-3">
+        
         <div class="card h-100">
+          <img src="{{ MEDIA_URL }}{{p.image.url}}">
           
-          <a href="#">
-      
-          </a>
+          
+         
           <div class="card-body px-2 pb-2 pt-1">
             <div class="d-flex justify-content-between">
               <div>
-                <p class="h4 text-primary">{{p.price}}</p>
+                <p class="h4 text-primary">Price:Rs{{p.price}}</p>
               </div>
               <div>
                 <a href="#" class="text-secondary lead" data-toggle="tooltip" data-placement="left" title="Compare">
@@ -39,7 +61,7 @@
             </p>
             <p class="mb-0">
               <strong>
-                <a href="#" class="text-secondary">{{p.name}}</a>
+                <a href="#" class="text-secondary">Product:{{p.name}}</a>
               </strong>
             </p>
             {% comment %} <p class="mb-1">
@@ -48,7 +70,13 @@
               </small>
             </p>
              {% endcomment %}
-            <div class="d-flex justify-content-between">
+             <div class="d-flex justify-content-between">
+              <div class="col px-0">
+                <a  href='{%  url 'productdetails' p.id %}'  class="btn btn-outline-primary btn-block">
+                  Details
+                  <i class="fa fa-shopping-basket" aria-hidden="true"></i>
+                </a>
+              </div>
               <div class="col px-0">
                 <a  href='{%  url 'add_cart' p.id %}'  class="btn btn-outline-primary btn-block">
                   Add To Cart 

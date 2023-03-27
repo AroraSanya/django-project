@@ -2,7 +2,7 @@
 {% extends 'Base.html' %}
 {% block content %}
 
-<form method = "POST" style="margin:30px;" >
+<form method = "POST" enctype="multipart/form-data" style="margin:30px;" >
     {% csrf_token %}
     {{form.as_div}}
     <input type = 'submit' name = 'submit' style="color: black;margin-top: 20px" value="Submit">
