@@ -31,4 +31,10 @@ class Order(models.Model):
 
 class Wishlist(models.Model):
     user  = models.ForeignKey(User, on_delete=models.CASCADE)
-    product  = models.ForeignKey(Product, on_delete=models.CASCADE)    
+    # product  = models.ForeignKey(Product, on_delete=models.CASCADE)    
+
+class Order_items(models.Model):
+    order=models.ForeignKey(Order,on_delete=models.CASCADE)
+    product=models.ForeignKey(Product,on_delete=models.CASCADE)
+    price_items=models.CharField(max_length=200)
+

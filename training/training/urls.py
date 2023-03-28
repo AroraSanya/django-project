@@ -18,7 +18,7 @@ from django.urls import path
 from django.views.decorators.csrf import csrf_exempt
 # from django.confimport setting
 from blog.views import update_blog,delete_blog,login_user,home,logout_user,registered_user,publish_blog,update_user,publish_blog,CreateFormview, list_all_blogs, Blogview
-from product.views import create_product,list_all_products,delete_product,add_to_cart,del_cart, cart_list,login,register_user,home_product,Contact_Us,logout_user_pro,order_create, checkout, address_create, increment_item, decrement_item,profile_user,change_password,add_wishlist,get_wishlist,del_to_wishlist,product_details
+from product.views import create_product,list_all_products,delete_product,add_to_cart,del_cart, cart_list,login,register_user,home_product,Contact_Us,logout_user_pro,order_create, checkout, address_create, increment_item, decrement_item,profile_user,change_password,add_wishlist,get_wishlist,del_to_wishlist,product_details,order_item,list_product
 from django.conf.urls.static import static 
 from django.conf import settings
 
@@ -44,7 +44,7 @@ urlpatterns = [
     # path('publish/',publish_blog,name='published')
     path('publish/blog_publish/<int:id>',publish_blog,name='publish-blog'),
 
-    ###################################
+    ############################################################################
     
     path('productcreate',create_product,name='create'),
     path('logoutt',logout_user_pro,name='logout'),
@@ -56,7 +56,7 @@ urlpatterns = [
     path('cart/list', cart_list,name='cart-list'),
     path('cart/del/<int:id>',del_cart, name='delete-cart'),
    
-
+     path('List/', list_product,name='list-API'), 
     path('register/', register_user,name='register'),
     path('login_product/',login,name='login'),
     path('contact/',Contact_Us,name='contactus'),
@@ -72,6 +72,9 @@ urlpatterns = [
     path('profile/',profile_user ,name='profile_user'),
     path('change-pass/',change_password ,name='changepass'),
     path('details/<int:id>',product_details ,name='productdetails'),
+    path('items/>',order_item ,name='orderitem'),
+    #  path('items/>',search ,name='orderitem'),
+
     
 
 
