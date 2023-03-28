@@ -1,12 +1,61 @@
 from django.http import HttpResponse
 from django.shortcuts import render,redirect
 from django.contrib.auth.models import User
-from .forms import ProductForm,RegisterForms,login_product,order_form,AddressForm
-from .models import Product,Cart,Order, AddressModel,Wishlist
+from .forms import ProductForm,RegisterForms,login_product,order_form,AddressForm,Order_items
+from .models import Product,Cart,Order, AddressModel,Wishlist,Order_items
 from product.cart_helper import login
 from django.contrib.auth import authenticate,login as auth,logout
 from django.contrib import messages
 from django.core.paginator import Paginator
+from rest_framework.response import Response
+from rest_framework.decorators import api_view
+from rest_framework.serializers import ModelSerializer
+
+
+
+class ProductSerializer(ModelSerializer):
+    class Meta:
+        model=Product
+        fields='__all__'
+
+@api_view()
+def list_product(request):
+    products=Product.objects.all()
+    return Response({"product":ProductSerializer(products,many=True).data})
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#M-V-T######################################################################################
 # from .models import MyModel
 
 # def upload_picture(request):
@@ -176,7 +225,15 @@ def order_create(request):
     for p in cart:
         total_cost = int(p.quantity) * p.product1.price
         Order.objects.create(user_id_id=request.user.id, product_id=p.product1.pk,address_id=address.pk, total_cost=total_cost)
+    messages.success(request,'Ordered Successfully')
     return redirect('product_home')
+
+def order_item(request,o_id):
+    cart=request.session['cart']
+    for p in cart:
+        total=int(p['price'])*p['quantity']
+        Order_items.objects.create(order_id=o_id, product_id=p['id'],price_items=total)
+        print("yessssssssssssssssssssssssssssssssss")
 
 def checkout(request):
     cart = Cart.objects.filter(user_id_id=request.user.id)
@@ -201,6 +258,8 @@ def change_password(request):
             user.save()
             return redirect('login')
     return render(request,'change_pass.html')
+
+
     
 
 # def add_to_cart(request,**kwargs):
