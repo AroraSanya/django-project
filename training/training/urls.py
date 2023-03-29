@@ -18,7 +18,7 @@ from django.urls import path
 from django.views.decorators.csrf import csrf_exempt
 # from django.confimport setting
 from blog.views import update_blog,delete_blog,login_user,home,logout_user,registered_user,publish_blog,update_user,publish_blog,CreateFormview, list_all_blogs, Blogview
-from product.views import create_product,list_all_products,delete_product,add_to_cart,del_cart, cart_list,login,register_user,home_product,Contact_Us,logout_user_pro,order_create, checkout, address_create, increment_item, decrement_item,profile_user,change_password,add_wishlist,get_wishlist,del_to_wishlist,product_details,order_item,list_product,Create_Produt,Update_Produt,Delete_Produt,Partial_Update_Produt,create_address,address_list,update_address,delete_address
+from product.views import create_product,list_all_products,delete_product,add_to_cart,del_cart, cart_list,login,register_user,home_product,Contact_Us,logout_user_pro,order_create, checkout, address_create, increment_item, decrement_item,profile_user,change_password,add_wishlist,get_wishlist,del_to_wishlist,product_details,order_item,list_product,Create_Produt,Update_Produt,Delete_Produt,Partial_Update_Produt,create_address,address_list,update_address,delete_address,Partial_Update
 from django.conf.urls.static import static 
 from django.conf import settings
 
@@ -52,11 +52,12 @@ urlpatterns = [
     path('Partial_Update/<int:pk>', Partial_Update_Produt,name='Partial_Update-API'),
     path('createaddress/',create_address,name='Partial_Update-API'),
     path('listaddress/',address_list,name='Partial_Update-API'),
-     path('Updateaddress/<int:pk>', update_address,name='updateaddress-API'),
-      path('Deleteaddress/<int:pk>', delete_address,name='Deleteaddress-API'),
+    path('Updateaddress/<int:pk>', update_address,name='updateaddress-API'),
+    path('Deleteaddress/<int:pk>', delete_address,name='Deleteaddress-API'),
+    path('PartialUpdate/<int:pk>', Partial_Update,name='Partial-API'),
 
 
-    ###############################################
+    #############################################################################
     path('productcreate',create_product,name='create'),
     path('logoutt',logout_user_pro,name='logout'),
     path('product/list',list_all_products,name='product-list'),

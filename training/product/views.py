@@ -94,8 +94,15 @@ def update_address(request, pk):
 def delete_address(request, pk):
     address = AddressModel.objects.get(id=pk)
     address.delete()
-    
     return Response({'message':"Successfully Deleted"}, status=status.HTTP_202_ACCEPTED)
+
+@api_view(http_method_names=('patch',))
+def Partial_Update(request,pk):
+    product=AddressModel.objects.get(id=pk)
+    Serializer=AddressModelSerializer(product,data=request.data,partial=True)
+    Serializer.is_valid(raise_exception=True)
+    Serializer.save()
+    return Response({"message":Serializer.data})
 
 
 
