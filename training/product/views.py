@@ -24,6 +24,40 @@ def list_product(request):
     return Response({"product":ProductSerializer(products,many=True).data})
 
 
+@api_view(http_method_names=('post',))
+def Create_Produt(request):
+    Serializer=ProductSerializer(data=request.data)
+    Serializer.is_valid(raise_exception=True)
+    Serializer.save()
+    return Response({"message":Serializer.data})
+
+@api_view(http_method_names=('put',))
+def Update_Produt(request,pk):
+    product=Product.objects.get(id=pk)
+    Serializer=ProductSerializer(product,data=request.data)
+    Serializer.is_valid(raise_exception=True)
+    Serializer.save()
+    return Response({"message":Serializer.data})
+    
+
+@api_view(http_method_names=('delete',))
+def Delete_Produt(request,pk):
+    product=Product.objects.get(id=pk)
+    product.delete()
+    return Response({"message":"successfully deleted"})
+
+
+@api_view(http_method_names=('patch',))
+def Partial_Update_Produt(request,pk):
+    product=Product.objects.get(id=pk)
+    Serializer=ProductSerializer(product,data=request.data,partial=True)
+    Serializer.is_valid(raise_exception=True)
+    Serializer.save()
+    return Response({"message":Serializer.data})
+    
+
+
+
  
 
 
@@ -228,8 +262,14 @@ def order_create(request):
     messages.success(request,'Ordered Successfully')
     return redirect('product_home')
 
-def order_item(request,o_id):
-    cart=request.session['cart']
+def order_item(request,o_id,**kwargs):
+    cart=request.objects.all()
+    if id:=kwargs.get('id'):
+        product=Product.objects.get(id=id)
+#         # print(product.id)
+        cart = Cart.objects.create(product1_id=product.id)
+        cart.save()
+    cart=Cart.objects.all()
     for p in cart:
         total=int(p['price'])*p['quantity']
         Order_items.objects.create(order_id=o_id, product_id=p['id'],price_items=total)

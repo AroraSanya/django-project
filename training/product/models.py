@@ -2,13 +2,20 @@ from django.db import models
 from django.contrib.auth.models import User
 
 # Create your models here.
+class Tag(models.Model):
+    tagname = models.CharField(max_length=70)
+    def __str__(self):
+        return self.tagname
+
 class Product(models.Model):
-    name =models.CharField(max_length=50)
-    price=models.IntegerField()
-    quality = models.TextField()
+    name =models.CharField(max_length=50,blank = True)
+    price=models.IntegerField(blank= True)
+    quality = models.TextField(blank =True)
     image  = models.ImageField(upload_to='images/',null=True)
     category=models.CharField(max_length=50,null=True)
-    
+    tags = models.ManyToManyField(Tag)
+    def __str__(self):
+        return self.name
 
 class Cart(models.Model):
   product1 = models.ForeignKey(Product, on_delete=models.CASCADE)
@@ -31,7 +38,7 @@ class Order(models.Model):
 
 class Wishlist(models.Model):
     user  = models.ForeignKey(User, on_delete=models.CASCADE)
-    # product  = models.ForeignKey(Product, on_delete=models.CASCADE)    
+    product  = models.ForeignKey(Product, on_delete=models.CASCADE,null=True)    
 
 class Order_items(models.Model):
     order=models.ForeignKey(Order,on_delete=models.CASCADE)

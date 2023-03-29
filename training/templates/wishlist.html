@@ -13,12 +13,14 @@
   <div class="container">
     <div class="row">
       
-        <img src="{{ MEDIA_URL }}{{wishlist.image.url}}" alt="default" />
+       
   
     {% for p in wishlist %}
       <div class="col-md-4 mb-3">
         <div class="card h-100">
+          <img src="{{ MEDIA_URL }}{{p.product.image.url}}" alt="default" />
           <div class="d-flex justify-content-between position-absolute w-100">
+        
           </div>
           
           <div class="card-body px-2 pb-2 pt-1">
@@ -52,7 +54,7 @@
             
             <div class="d-flex justify-content-between">
               <div class="col px-0">
-                <a  href='{% url 'del-wishlist' p.id %}'  class="btn btn-outline-primary btn-block">
+                <a  href="{% url 'del-wishlist' p.id %}"  class="btn btn-outline-primary btn-block">
                   Remove to wishlist  
                   <i class="fa fa-shopping-basket" aria-hidden="true"></i>
                 </a>
