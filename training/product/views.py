@@ -10,6 +10,8 @@ from django.core.paginator import Paginator
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from rest_framework.serializers import ModelSerializer
+from rest_framework import status
+
 
 
 
@@ -17,6 +19,12 @@ class ProductSerializer(ModelSerializer):
     class Meta:
         model=Product
         fields='__all__'
+
+class AddressModelSerializer(ModelSerializer):
+    class Meta:
+        model=AddressModel
+        fields='__all__'
+
 
 @api_view()
 def list_product(request):
@@ -56,13 +64,38 @@ def Partial_Update_Produt(request,pk):
     return Response({"message":Serializer.data})
     
 
-
-
+@api_view(http_method_names=('post',))
+def create_address(request):
+    serializer=AddressModelSerializer(data=request.data)
+    if serializer.is_valid():
+        serializer.save()
+    return Response({'Address':serializer.data},status=status.HTTP_201_CREATED)
  
 
+@api_view()
+def address_list(request):
+    addresses = AddressModel.objects.all()
+    return Response({'Address':AddressModelSerializer(addresses,many=True).data},status=status.HTTP_200_OK)
 
 
 
+@api_view(http_method_names=('put',))
+def update_address(request, pk):
+    address = AddressModel.objects.get(id=pk)
+    serializer = AddressModelSerializer(address, data = request.data)
+    if serializer.is_valid():
+        serializer.save()
+    return Response({'Address':serializer.data}, status=status.HTTP_200_OK)
+
+
+
+
+@api_view(http_method_names=('delete',))
+def delete_address(request, pk):
+    address = AddressModel.objects.get(id=pk)
+    address.delete()
+    
+    return Response({'message':"Successfully Deleted"}, status=status.HTTP_202_ACCEPTED)
 
 
 
