@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     'blog',
     'product',
     'rest_framework',
+    'rest_framework.authtoken'
     
 ]
 
@@ -146,5 +147,9 @@ STATIC_ROOT=os.path.join(BASE_DIR,'static')
 REST_FRAMEWORK = {
     'DEFAULT_RENDERER_CLASSES': [
         'rest_framework.renderers.JSONRenderer',
+    ],
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',
+       
     ]
 }

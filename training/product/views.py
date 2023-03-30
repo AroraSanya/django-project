@@ -8,9 +8,12 @@ from django.contrib.auth import authenticate,login as auth,logout
 from django.contrib import messages
 from django.core.paginator import Paginator
 from rest_framework.response import Response
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view,permission_classes
 from rest_framework.serializers import ModelSerializer
 from rest_framework import status
+from rest_framework.permissions import IsAuthenticated 
+from rest_framework.authtoken.models import Token
+
 
 
 
@@ -24,6 +27,39 @@ class AddressModelSerializer(ModelSerializer):
     class Meta:
         model=AddressModel
         fields='__all__'
+        
+class UserSerializer(ModelSerializer):
+    class Meta:
+        model = User
+        fields = ['username','password']
+
+
+@api_view(http_method_names=('post',))
+def login_user_token(request):
+    username=request.data['username']
+    password=request.data['password']
+    user=authenticate(username=username,password=password) 
+    auth(request,user)
+    user= User.objects.get(username=username)
+    token=Token.objects.create(user=user)
+    return Response({'token':token.key},status=status.HTTP_200_OK)
+
+
+@api_view()
+@permission_classes([IsAuthenticated])
+def logout_users(request):
+    try:
+        token=Token.objects.get(user_id=request.user.id)
+        token.delete()
+        logout(request)
+    except:
+        return Response({'message':" NOT_LOGGED_OUT"})
+    return Response({'user':"LOGGED_OUT"})    
+
+@api_view()
+def product_get_view(request, pk):
+    product_get = Product.objects.get(id=pk)
+    return Response({'Product':ProductSerializer(product_get).data})
 
 
 @api_view()
@@ -65,14 +101,19 @@ def Partial_Update_Produt(request,pk):
     
 
 @api_view(http_method_names=('post',))
+@permission_classes([IsAuthenticated])
 def create_address(request):
+    request.data['user_id'] = request.user.id
     serializer=AddressModelSerializer(data=request.data)
     if serializer.is_valid():
         serializer.save()
+    else:
+        return Response({'msg':serializer.errors})
     return Response({'Address':serializer.data},status=status.HTTP_201_CREATED)
  
 
 @api_view()
+@permission_classes([IsAuthenticated])
 def address_list(request):
     addresses = AddressModel.objects.all()
     return Response({'Address':AddressModelSerializer(addresses,many=True).data},status=status.HTTP_200_OK)
@@ -80,6 +121,7 @@ def address_list(request):
 
 
 @api_view(http_method_names=('put',))
+@permission_classes([IsAuthenticated])
 def update_address(request, pk):
     address = AddressModel.objects.get(id=pk)
     serializer = AddressModelSerializer(address, data = request.data)
@@ -91,12 +133,15 @@ def update_address(request, pk):
 
 
 @api_view(http_method_names=('delete',))
+@permission_classes([IsAuthenticated])
 def delete_address(request, pk):
     address = AddressModel.objects.get(id=pk)
     address.delete()
     return Response({'message':"Successfully Deleted"}, status=status.HTTP_202_ACCEPTED)
 
+
 @api_view(http_method_names=('patch',))
+@permission_classes([IsAuthenticated])
 def Partial_Update(request,pk):
     product=AddressModel.objects.get(id=pk)
     Serializer=AddressModelSerializer(product,data=request.data,partial=True)
