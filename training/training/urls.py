@@ -30,6 +30,7 @@ urlpatterns = [
     path('createblog',CreateApiviews.as_view()),
     path('listblog',ListAPIviews.as_view()),
     path('retrieveblog/<int:pk>',RetrieveApiviews.as_view()),
+    path('listcreateblog',ListCreateapiviews.as_view()),
 
 
 

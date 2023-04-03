@@ -24,20 +24,19 @@ class BlogSerializer(ModelSerializer):
         model=Blog
         fields='__all__'
 
-class BlogRetrieveSerializer(ModelSerializer):
-    class Meta:
-        model=Blog
-        fields=['title']
+# class BlogRetrieveSerializer(ModelSerializer):
+#     class Meta:
+#         model=Blog
+#         fields=['title']
 
 class CreateApiviews(generics.CreateAPIView):
      serializer_class=BlogSerializer
-     def create(self, request, *args, **kwargs):
-            serializer = self.get_serializer(data=request.data)
-            serializer.is_valid(raise_exception=True)
-            self.perform_create(serializer)
-            headers = self.get_success_headers(serializer.data)
-            serializer.message={"hello,I am Sanya"}
-            return Response(serializer.message, status=status.HTTP_201_CREATED, headers=headers)
+     def create(self, request):
+            response=super().create(request)
+            return Response({
+                 'message':"Blog Created"
+            })
+           
      
 
 class ListAPIviews(generics.ListAPIView):
@@ -47,10 +46,21 @@ class ListAPIviews(generics.ListAPIView):
 
 class RetrieveApiviews(generics.RetrieveAPIView):    
     queryset = Blog.objects.all()
-    serializer_class = BlogRetrieveSerializer
+    serializer_class = BlogSerializer
 
+    def retrieve(self, request, *args, **kwargs):
+        instance = self.get_object()
+        serializer = self.get_serializer(instance)
+        return Response({"title name":serializer.data['title']})
 
-
+class ListCreateapiviews(generics.ListCreateAPIView):
+      queryset = Blog.objects.all()
+      serializer_class = BlogSerializer
+    #   def list(self,request):
+    #         queryset = Blog.objects.all()
+    #         serializer = BlogSerializer(queryset, many=True)
+    #         return Response(serializer.data)
+     
     
 
 
