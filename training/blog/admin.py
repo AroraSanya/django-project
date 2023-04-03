@@ -1,5 +1,5 @@
 from django.contrib import admin
-from blog.models import Blog
+from blog.models import Blog,User
 from datetime import timedelta
 from django.utils import timezone
 
@@ -25,7 +25,7 @@ class RegisteredBlog(admin.ModelAdmin):
               
 
 admin.site.register(Blog,RegisteredBlog)
-    
+admin.site.register(User)
 
 
 

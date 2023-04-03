@@ -1,9 +1,9 @@
 from django.shortcuts import render,redirect
 from django.http import HttpResponse
 from django import views
-from django.contrib.auth.models import User
+# from django.contrib.auth.models import User
 from blog.form import RegisterForms,BlogForm,Login_form
-from blog.models import Blog
+from blog.models import Blog, User
 from django.conf import settings 
 from django.contrib.auth.decorators import permission_required
 from django.contrib.auth import authenticate,login,logout
@@ -13,6 +13,7 @@ from rest_framework.views import APIView
 from rest_framework import generics
 from rest_framework import status
 from rest_framework.response import Response
+from rest_framework import serializers
 
   ####################################################
 
@@ -22,22 +23,33 @@ from rest_framework.response import Response
 class BlogSerializer(ModelSerializer):
     class Meta:
         model=Blog
-        fields='__all__'
+        fields ='__all__'
 
-# class BlogRetrieveSerializer(ModelSerializer):
-#     class Meta:
-#         model=Blog
-#         fields=['title']
+class UserSerializer(ModelSerializer):
+    fullname = serializers.SerializerMethodField()
+    def get_fullname(self, obj):
+           return (obj.f_name + obj.l_name)
+    class Meta:
+          model=User
+          fields=['f_name','l_name','fullname']
 
+     
+    
+
+class ListUserCreateApi(generics.ListCreateAPIView):
+      serializer_class=UserSerializer
+      queryset=User.objects.all()
+
+      
+      
+ 
 class CreateApiviews(generics.CreateAPIView):
      serializer_class=BlogSerializer
      def create(self, request):
             response=super().create(request)
             return Response({
                  'message':"Blog Created"
-            })
-           
-     
+            }) 
 
 class ListAPIviews(generics.ListAPIView):
      serializer_class=BlogSerializer

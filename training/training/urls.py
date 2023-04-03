@@ -39,6 +39,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     # path('create/blog',CreateFormview.as_view(),name='create-blog'),
     path('del/blog',Blogview.as_view(),name='blog'),
+    path('user_fullname',ListUserCreateApi.as_view()),
 
 
     path('',home,name='home page'),
