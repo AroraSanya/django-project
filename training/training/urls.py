@@ -21,13 +21,22 @@ from blog.views import update_blog,delete_blog,login_user,home,logout_user,regis
 from product.views import create_product,list_all_products,delete_product,add_to_cart,del_cart, cart_list,login,register_user,home_product,Contact_Us,logout_user_pro,order_create, checkout, address_create, increment_item, decrement_item,profile_user,change_password,add_wishlist,get_wishlist,del_to_wishlist,product_details,order_item,list_product,Create_Produt,Update_Produt,Delete_Produt,Partial_Update_Produt,create_address,address_list,update_address,delete_address,Partial_Update,product_get_view,login_user_token,logout_users
 from django.conf.urls.static import static 
 from django.conf import settings
-
+from product.views import ProductListView,ProductDetailView,ProductCreateView,ProductUpdateView,ProductDeleteView
+from blog.views import *
 
 
 urlpatterns = [
+    ################# blog-API #################
+    path('createblog',CreateApiviews.as_view()),
+    path('listblog',ListAPIviews.as_view()),
+    path('retrieveblog/<int:pk>',RetrieveApiviews.as_view()),
+
+
+
+    # path('',home,name='home page'),
     path('',home_product,name='product_home'),
     path('admin/', admin.site.urls),
-    path('create/blog',CreateFormview.as_view(),name='create-blog'),
+    # path('create/blog',CreateFormview.as_view(),name='create-blog'),
     path('del/blog',Blogview.as_view(),name='blog'),
 
 
@@ -59,13 +68,24 @@ urlpatterns = [
     path('productget/<int:pk>',product_get_view,name='product_get'),
     path('login_usertoken/',login_user_token,name='loginusertoken'),
     path('logout_usertoken/',logout_users,name='logoutusertoken'),
+#######   Class-based-view   ################
+    path('list_class/',ProductListView.as_view(),name='product-list'),
+    path('details_class/<int:pk>',ProductDetailView.as_view(),name='productdetails'),
+    path('create_class/',ProductCreateView.as_view(),name='create'),
+    path('update_class/<int:pk>',ProductUpdateView.as_view()),
+    path('delete_class/<int:pk>',ProductDeleteView.as_view()),
+
+
+
+
+
 
 
 
     #############################################################################
-    path('productcreate',create_product,name='create'),
+    # path('productcreate',create_product,name='create'),
     path('logoutt',logout_user_pro,name='logout'),
-    path('product/list',list_all_products,name='product-list'),
+    # path('product/list',list_all_products,name='product-list'),
     path('product/delete',delete_product),
     path('add_to_cart/<int:id>',add_to_cart,name='add_cart'),
     # path('cart/<int:id>',del_cart),
@@ -88,14 +108,9 @@ urlpatterns = [
     path('address/create/',address_create ,name='address-create'),
     path('profile/',profile_user ,name='profile_user'),
     path('change-pass/',change_password ,name='changepass'),
-    path('details/<int:id>',product_details ,name='productdetails'),
+    # path('details/<int:id>',product_details ,name='productdetails'),
     path('items/>',order_item ,name='orderitem'),
     #  path('items/>',search ,name='orderitem'),
-
-    
-
-
-    
    
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
     

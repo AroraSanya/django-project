@@ -1,0 +1,14 @@
+{% extends 'Base.html' %}
+{% block content %}
+<style>
+    body{
+        color: black;
+    }
+</style>
+<form method="post">{% csrf_token %}
+    <p>Deleted "{{ object }}</p>
+    {{ form }}
+    <input type="submit">
+</form>
+
+{%endblock%}

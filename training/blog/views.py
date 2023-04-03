@@ -8,8 +8,89 @@ from django.conf import settings
 from django.contrib.auth.decorators import permission_required
 from django.contrib.auth import authenticate,login,logout
 from django.views import View
+from rest_framework.serializers import ModelSerializer
+from rest_framework.views import APIView
+from rest_framework import generics
+from rest_framework import status
+from rest_framework.response import Response
+
+  ####################################################
+
+
+
+
+class BlogSerializer(ModelSerializer):
+    class Meta:
+        model=Blog
+        fields='__all__'
+
+class BlogRetrieveSerializer(ModelSerializer):
+    class Meta:
+        model=Blog
+        fields=['title']
+
+class CreateApiviews(generics.CreateAPIView):
+     serializer_class=BlogSerializer
+     def create(self, request, *args, **kwargs):
+            serializer = self.get_serializer(data=request.data)
+            serializer.is_valid(raise_exception=True)
+            self.perform_create(serializer)
+            headers = self.get_success_headers(serializer.data)
+            serializer.message={"hello,I am Sanya"}
+            return Response(serializer.message, status=status.HTTP_201_CREATED, headers=headers)
+     
+
+class ListAPIviews(generics.ListAPIView):
+     serializer_class=BlogSerializer
+     queryset=Blog.objects.filter(is_published=True)
+
+
+class RetrieveApiviews(generics.RetrieveAPIView):    
+    queryset = Blog.objects.all()
+    serializer_class = BlogRetrieveSerializer
+
+
+
     
-  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  #########################################################33
 
 class CreateFormview(View):
      form=BlogForm()

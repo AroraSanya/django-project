@@ -13,6 +13,10 @@ from rest_framework.serializers import ModelSerializer
 from rest_framework import status
 from rest_framework.permissions import IsAuthenticated 
 from rest_framework.authtoken.models import Token
+from django.views.generic.list import ListView
+from django.views.generic.detail import DetailView
+from django.views.generic.edit import CreateView
+from django.views.generic.edit import UpdateView,DeleteView
 
 
 
@@ -150,6 +154,41 @@ def Partial_Update(request,pk):
     return Response({"message":Serializer.data})
 
 
+
+###CLASS BASED VIEWS
+
+
+class ProductListView(ListView):
+    model=Product
+    template_name='list_all_product.html'
+    # queryset=Product.objects.all() 
+    paginate_by=3
+    # return render(request,'list_all_product.html',{'queryset':queryset})
+
+class ProductDetailView(DetailView):
+    model=Product
+    template_name='product_details.html'
+    context_object_name = 'product'
+    
+
+class ProductCreateView(CreateView):
+    model=Product
+    # fields='__all__'
+    template_name='create.html'
+    success_url='/create_class/'
+    
+
+class ProductUpdateView(UpdateView):
+    model=Product
+    # fields='__all__'
+    template_name='productupdate.html'
+    success_url='/update_class/'
+
+
+class ProductDeleteView(DeleteView):
+    model=Product
+    template_name='productdelete.html'
+    success_url='/delete_class/'
 
 
 
