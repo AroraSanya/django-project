@@ -14,6 +14,9 @@ from rest_framework import generics
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework import serializers
+from rest_framework.viewsets import ModelViewSet
+from django_filters.rest_framework import DjangoFilterBackend
+from django_filters import rest_framework as  django_filters
 
   ####################################################
 
@@ -28,13 +31,32 @@ class BlogSerializer(ModelSerializer):
 class UserSerializer(ModelSerializer):
     fullname = serializers.SerializerMethodField()
     def get_fullname(self, obj):
-           return (obj.f_name + obj.l_name)
+           return '{} {}'.format(obj.f_name, obj.l_name)
     class Meta:
           model=User
           fields=['f_name','l_name','fullname']
 
-     
-    
+
+class BlogFilterSet(django_filters.FilterSet):
+    title= django_filters.CharFilter(lookup_expr='contains')
+
+    class Meta:
+        model = Blog
+        fields = ['title','is_published']
+
+class BlogViewSet(ModelViewSet):
+    serializer_class = BlogSerializer
+    queryset = Blog.objects.all()
+    filter_backends = [DjangoFilterBackend]
+    # filterset_fields = ['title', 'description']
+    filterset_class=BlogFilterSet
+
+    # def create(self,request):
+    #     response=super().create(request)
+    #     return Response({
+    #              'message':"Blog Created"
+    #         }) 
+         
 
 class ListUserCreateApi(generics.ListCreateAPIView):
       serializer_class=UserSerializer
